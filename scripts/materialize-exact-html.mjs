@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 const pages = [
   ["site-nash-platfrom.html", ["index.html", "platform.html", "platform/index.html"]],
   ["site-nash-axis.html", ["axis.html", "axis/index.html"]],
+  ["site-nash-deploy.html", ["deploy.html", "deploy/index.html"]],
   ["site-nash-edge.html", ["edge.html", "edge/index.html"]],
   ["site-nash-mind.html", ["mind.html", "mind/index.html"]],
   ["site-nash-usecases.html", ["use-cases.html", "use-cases/index.html"]],
@@ -17,7 +18,8 @@ function withBasePath(html) {
   }
 
   return html
-    .replace(/href="\/(edge|mind|axis|use-cases)?\/?"/g, (_match, route = "") => {
+    .replace(/href="\/(favicon(?:-light|-dark)?\.(?:ico|png)|apple-icon(?:-light|-dark)\.png)"/g, (_match, asset) => `href="${basePath}/${asset}"`)
+    .replace(/href="\/(edge|deploy|mind|axis|use-cases)?\/?"/g, (_match, route = "") => {
       const suffix = route ? `/${route}/` : "/";
       return `href="${basePath}${suffix}"`;
     })

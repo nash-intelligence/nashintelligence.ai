@@ -6,6 +6,7 @@ const outputDir = join(process.cwd(), "src", "exact-html");
 const routes = {
   platform: "/",
   edge: "/edge/",
+  deploy: "/deploy/",
   mind: "/mind/",
   axis: "/axis/",
   useCases: "/use-cases/",
@@ -13,11 +14,18 @@ const routes = {
 
 const navItems = [
   ["platform", "Platform", routes.platform],
-  ["edge", "Edge", routes.edge],
-  ["mind", "Mind", routes.mind],
-  ["axis", "Axis", routes.axis],
   ["useCases", "Use Cases", routes.useCases],
+  ["axis", "Axis", routes.axis],
+  ["mind", "Mind", routes.mind],
+  ["edge", "Edge", routes.edge],
+  ["deploy", "Deploy", routes.deploy],
 ];
+
+function themeToggle() {
+  return `<button class="h-10 w-10 rounded-full border border-outline-variant/20 bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center text-on-surface-variant" id="theme-toggle" type="button" title="Theme: System" aria-label="Theme: System" data-theme-mode="system">
+<span class="material-symbols-outlined text-[20px]" id="theme-toggle-icon">desktop_windows</span>
+</button>`;
+}
 
 const pillarCards = [
   {
@@ -25,7 +33,7 @@ const pillarCards = [
     title: "Nash Mind",
     label: "Memory",
     href: routes.mind,
-    image: "/nash/icons/nash-mind.png",
+    image: "/nash/icons/nash-mind-dark.png",
     copy: "Structured organisational knowledge, evidence, relationships, policy context and decision history for governed AI.",
   },
   {
@@ -33,7 +41,7 @@ const pillarCards = [
     title: "Nash Axis",
     label: "Orchestration",
     href: routes.axis,
-    image: "/nash/icons/nash-axis.png",
+    image: "/nash/icons/nash-axis-dark.png",
     copy: "The control plane for agents, approvals, workflow routing, human checkpoints and auditable action chains.",
   },
   {
@@ -41,7 +49,7 @@ const pillarCards = [
     title: "Nash Edge",
     label: "Private Compute",
     href: routes.edge,
-    image: "/nash/icons/nash-edge.png",
+    image: "/nash/icons/nash-edge-dark.png",
     copy: "Private AI deployment close to your data, infrastructure, users and operational boundaries.",
   },
   {
@@ -49,7 +57,7 @@ const pillarCards = [
     title: "Nash Agent",
     label: "Execution",
     href: routes.platform,
-    image: "/nash/icons/nash-agent.png",
+    image: "/nash/icons/nash-agent-dark.png",
     copy: "Governed specialist agents for repeatable business work across operations, proposals, support and analysis.",
   },
   {
@@ -57,7 +65,7 @@ const pillarCards = [
     title: "Nash OS",
     label: "Control",
     href: routes.platform,
-    image: "/nash/icons/nash-os.png",
+    image: "/nash/icons/nash-os-dark.png",
     copy: "The operating surface for policy, permissions, visibility, system status and enterprise AI governance.",
   },
 ];
@@ -124,6 +132,66 @@ const pages = [
     ctaCopy: "Design private inference, governed memory and agent workflows around your security model.",
   },
   {
+    key: "deploy",
+    file: "site-nash-deploy.html",
+    title: "Deployment Options | Nash Intelligence",
+    description: "Explore Nash Intelligence deployment options, from secure managed cloud and BYO cloud to private desktop, team rack and enterprise rack infrastructure.",
+    eyebrowIcon: "deployed_code",
+    eyebrow: "Deployment options",
+    h1: 'Private AI deployment, <br><span class="text-primary">sized to your organisation.</span>',
+    intro: "From secure managed cloud for rapid prototyping to full-scale sovereign infrastructure racks. Nash Intelligence scales with your data requirements.",
+    heroImage: "/nash/images/nash-edge-rack.png",
+    heroAlt: "Nash Edge private deployment rack infrastructure",
+    problemIcon: "settings_suggest",
+    problemTitle: "Find The Deployment Model That Matches Your Stage",
+    problem: "Every Nash Intelligence deployment maintains governance, auditability and data sovereignty, whether you start in managed cloud or run dedicated private infrastructure.",
+    capabilityTitle: "What Stays Consistent",
+    capabilities: [
+      ["memory", "Organisational memory", "Persistent cross-project knowledge retrieval with evidence, lineage and controlled context.", "Shared context"],
+      ["smart_toy", "Agent orchestration", "Coordinate multiple AI agents, workflow steps and human approvals across complex tasks.", "Governed work"],
+      ["shield_with_house", "Data boundary control", "Keep sensitive data inside the cloud, office or rack boundary defined for your organisation.", "Sovereign control"],
+    ],
+    patternsTitle: "Deployment Progression",
+    patternsIntro: "Adopt more capability over time as your security, capacity and reach requirements grow.",
+    patterns: [
+      ["01 Cloud", "Nash Cloud And BYO Cloud", "Start quickly in a managed environment, then move into your own AWS, Azure or GCP boundary when cloud controls matter.", "/nash/icons/nash-cloud-dark.png"],
+      ["02 Desktop Edge", "Private Pilot", "Run a compact local edge server for high-security teams that need local, fast or air-gapped compute.", "/nash/images/nash-edge-desktop.png"],
+      ["03 Rack Scale", "Team And Enterprise Racks", "Scale from departmental rack infrastructure to data-centre-ready sovereign AI for organisation-wide workloads.", "/nash/images/nash-edge-rack.png"],
+    ],
+    deployStages: [
+      ["Stage 1: Fast start", "Nash Cloud", "A fully managed cloud environment designed for rapid internal testing and capability pilots.", ["Fastest path", "Pilots/Discovery"], ""],
+      ["Stage 2: Controlled cloud", "BYO Cloud", "Deploy Nash Intelligence inside your own AWS, Azure, or GCP environment to respect existing data boundaries.", ["Cloud-first", "Data Boundary"], ""],
+      ["Stage 3: Private pilot", "Nash Edge Desktop", "Compact local edge server for small internal teams who require high-speed, air-gapped compute.", ["128GB RAM", "2TB Storage"], "/nash/images/nash-edge-desktop.png"],
+      ["Stage 4: Team scale", "Nash Edge Team Rack", "Dedicated rack infrastructure for departmental business units with heavy daily AI workloads.", ["512GB RAM", "24TB Storage"], "/nash/images/nash-edge-halfrack.png"],
+      ["Stage 5: Enterprise scale", "Nash Edge Enterprise Rack", "Data-centre-ready sovereign AI infrastructure designed for massive workloads and organisational-wide memory.", ["1TB+ RAM", "100TB+ Storage"], "/nash/images/nash-edge-rack.png"],
+    ],
+    fitCards: [
+      ["0-10 Employees", "Nash Cloud", "I need to prove value quickly without managing infrastructure."],
+      ["Enterprise Division", "BYO Cloud", "I have strict cloud compliance rules but need to move fast."],
+      ["High-Sec Team", "Edge Desktop", "Our data cannot leave our physical office walls."],
+      ["Global Org", "Enterprise Rack", "We are building a central AI core for 1,000+ users."],
+    ],
+    sharedCapabilities: [
+      ["memory", "Organisational memory", "Persistent cross-project knowledge retrieval."],
+      ["smart_toy", "Agent orchestration", "Coordinate multiple AI agents for complex tasks."],
+      ["account_tree", "Workflow automation", "Visual logic builder for repeatable AI processes."],
+      ["how_to_reg", "Human approvals", "Mandatory checkpoints for critical decisions."],
+      ["lock_person", "Role-based access", "Granular permissions for data and models."],
+      ["history_edu", "Audit trails", "Immutable logs of every interaction and prompt."],
+      ["fact_check", "Knowledge provenance", "Trace every AI output back to its source document."],
+      ["shield_with_house", "Data boundary control", "Ensure sensitive data never leaves its defined area."],
+      ["terminal", "Governed execution", "Secure code execution in sandboxed environments."],
+    ],
+    infrastructureRows: [
+      ["Compute", "8-Core GPU Node", "24-Core Cluster", "Multi-Node NVIDIA"],
+      ["Storage", "NVMe Flash", "ZFS Hot-Swap", "High-Density SAN"],
+      ["Backup", "Local Mirror", "Encrypted Offsite", "Tape/Air-Gapped"],
+      ["Power", "Standard AC", "Dual UPS", "Redundant PDU"],
+    ],
+    ctaTitle: "Find the deployment option that fits your organisation.",
+    ctaCopy: "Start in managed cloud, bring your own cloud boundary or move into private edge infrastructure without changing the governance model.",
+  },
+  {
     key: "mind",
     file: "site-nash-mind.html",
     title: "Nash Mind | Organisational Memory For Governed AI",
@@ -148,7 +216,7 @@ const pages = [
     patterns: [
       ["01 Source Ingestion", "Connect Knowledge", "Bring structured and unstructured sources into a governed memory foundation.", "/nash/images/img-nash-mind.png"],
       ["02 Context Graph", "Model Relationships", "Link decisions, policies, entities and evidence so AI can reason with lineage.", "/nash/icons/nash-mind-dark.png"],
-      ["03 Governed Use", "Serve Context", "Provide agents with approved context and auditable citations for high-stakes work.", "/nash/icons/nash-os.png"],
+      ["03 Governed Use", "Serve Context", "Provide agents with approved context and auditable citations for high-stakes work.", "/nash/icons/nash-os-dark.png"],
     ],
     ctaTitle: "Give AI access to governed context.",
     ctaCopy: "Turn organisational memory into a structured foundation for agents, workflows and decisions.",
@@ -162,7 +230,7 @@ const pages = [
     eyebrow: "Product: Axis",
     h1: 'Agent orchestration <br><span class="text-primary">with control built in.</span>',
     intro: "Nash Axis coordinates agents, workflows, approvals, tasks and system actions through a governed orchestration layer.",
-    heroImage: "/nash/icons/nash-axis-dark.png",
+    heroImage: "/nash/images/img-nash-axis.png",
     heroAlt: "Nash Axis orchestration pillar",
     problemIcon: "rule",
     problemTitle: "Autonomous Agents Need Boundaries",
@@ -176,9 +244,9 @@ const pages = [
     patternsTitle: "Orchestration Patterns",
     patternsIntro: "Coordinate human and agent work before it becomes operational noise.",
     patterns: [
-      ["01 Request", "Interpret Work", "Understand the incoming request, required context and sensitivity of the action.", "/nash/icons/nash-agent.png"],
-      ["02 Assign", "Coordinate Agents", "Route subtasks across agents and humans with role boundaries and permission checks.", "/nash/icons/nash-axis.png"],
-      ["03 Record", "Approve And Audit", "Capture approvals, outputs and final state in a durable audit trail.", "/nash/icons/nash-os.png"],
+      ["01 Request", "Interpret Work", "Understand the incoming request, required context and sensitivity of the action.", "/nash/icons/nash-agent-dark.png"],
+      ["02 Assign", "Coordinate Agents", "Route subtasks across agents and humans with role boundaries and permission checks.", "/nash/icons/nash-axis-dark.png"],
+      ["03 Record", "Approve And Audit", "Capture approvals, outputs and final state in a durable audit trail.", "/nash/icons/nash-os-dark.png"],
     ],
     ctaTitle: "Coordinate AI work before it becomes chaos.",
     ctaCopy: "Combine agent speed with human-governed controls, approvals and traceable execution.",
@@ -206,8 +274,8 @@ const pages = [
     patternsTitle: "Workflow Examples",
     patternsIntro: "Repeatable patterns where governed AI can safely assist.",
     patterns: [
-      ["01 Proposal Draft", "Proposal Support", "Retrieve historical context, generate drafts, check compliance and pause for review.", "/nash/icons/nash-mind.png"],
-      ["02 Operations", "Workflow Automation", "Coordinate requests across agents, systems and human approvals.", "/nash/icons/nash-axis.png"],
+      ["01 Proposal Draft", "Proposal Support", "Retrieve historical context, generate drafts, check compliance and pause for review.", "/nash/icons/nash-mind-dark.png"],
+      ["02 Operations", "Workflow Automation", "Coordinate requests across agents, systems and human approvals.", "/nash/icons/nash-axis-dark.png"],
       ["03 Private Workloads", "Secure AI Deployment", "Run sensitive AI work close to the data and systems it depends on.", "/nash/images/nash-edge-halfrack.png"],
     ],
     ctaTitle: "Ready to see it in action?",
@@ -279,28 +347,227 @@ function patternCards(patterns) {
     .join("\n");
 }
 
+function deployExtraSections(page) {
+  if (page.key !== "deploy") {
+    return "";
+  }
+
+  const maturityItems = ["Cloud", "BYO Cloud", "Desktop Edge", "Team Rack", "Enterprise Rack"]
+    .map(
+      (label, index) => `<div class="flex flex-col items-center gap-4 bg-background px-4">
+<div class="w-4 h-4 rounded-full ${index < 2 ? "bg-primary ring-primary/10" : index < 4 ? "bg-secondary ring-secondary/10" : "bg-on-surface ring-on-surface/10"} ring-8"></div>
+<span class="font-label-mono text-label-mono text-on-tertiary-container uppercase">${label}</span>
+</div>`,
+    )
+    .join("\n");
+
+  const stageCards = page.deployStages
+    .map(
+      ([label, title, copy, tags, image], index) => `<div class="relative flex flex-col md:flex-row items-center gap-12 group">
+<div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-6 h-6 rounded-full ${index < 2 ? "bg-primary" : index < 4 ? "bg-secondary" : "bg-on-surface"} border-4 border-surface shadow-sm z-10 group-hover:scale-125 transition-transform"></div>
+${index % 2 === 1 ? '<div class="w-full md:w-1/2 hidden md:block"></div>' : ""}
+<div class="w-full md:w-1/2 ml-12 md:ml-0 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}">
+<span class="font-label-mono text-label-mono ${index < 2 ? "text-primary bg-primary/10" : index < 4 ? "text-secondary bg-secondary/10" : "text-on-primary bg-on-surface"} uppercase font-bold px-2 py-1 rounded mb-2 inline-block">${label}</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2">${title}</h3>
+<p class="font-body-md text-on-tertiary-container mb-4">${copy}</p>
+<div class="flex flex-wrap gap-2 ${index % 2 === 0 ? "md:justify-end" : ""} ${image ? "mb-4" : ""}">
+${tags.map((tag) => `<span class="bg-surface-container-high px-3 py-1 rounded text-label-mono text-on-surface-variant border border-outline-variant/10">${tag}</span>`).join("\n")}
+</div>
+${image ? `<img alt="${title}" class="w-full h-48 object-contain rounded-xl border border-outline-variant/20 glow-blue bg-surface-container-low p-4" src="${image}">` : ""}
+</div>
+${index % 2 === 0 ? '<div class="w-full md:w-1/2 hidden md:block"></div>' : ""}
+</div>`,
+    )
+    .join("\n<div class=\"circuit-line\"></div>\n");
+
+  const fitCards = page.fitCards
+    .map(
+      ([label, title, copy], index) => `<div class="glass-panel p-6 rounded-xl transition-all ${index === 0 ? "" : index === 1 ? "border-l-4 border-l-primary" : index === 2 ? "border-l-4 border-l-secondary" : "border-l-4 border-l-tertiary"}">
+<h4 class="font-label-mono text-label-mono text-primary mb-4 uppercase">${label}</h4>
+<p class="font-headline-lg-mobile text-on-surface mb-4">${title}</p>
+<p class="font-body-md text-body-md text-on-surface-variant">${copy}</p>
+</div>`,
+    )
+    .join("\n");
+
+  const sharedCards = page.sharedCapabilities
+    .map(
+      ([icon, title, copy]) => `<div class="p-6 bg-surface rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-4">${icon}</span>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">${title}</h4>
+<p class="font-body-md text-sm text-on-surface-variant">${copy}</p>
+</div>`,
+    )
+    .join("\n");
+
+  const infraRows = page.infrastructureRows
+    .map(
+      ([module, desktop, teamRack, enterprise]) => `<div class="grid grid-cols-4 p-4 border-b border-outline-variant/10 items-center">
+<div class="font-bold text-on-surface pl-4">${module}</div>
+<div class="text-on-surface-variant text-sm">${desktop}</div>
+<div class="text-on-surface-variant text-sm">${teamRack}</div>
+<div class="text-on-surface-variant text-sm">${enterprise}</div>
+</div>`,
+    )
+    .join("\n");
+
+  return `<section class="mb-24 text-center">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-secondary bg-secondary/10 px-3 py-1 rounded mb-6 inline-block">${page.eyebrow}</span>
+<h1 class="font-display-lg text-display-lg md:text-6xl text-on-surface mb-6 max-w-4xl mx-auto leading-tight">Private AI deployment, sized to your organisation.</h1>
+<p class="font-body-md text-body-md text-on-tertiary-container max-w-2xl mx-auto mb-10">From secure managed cloud for rapid prototyping to full-scale sovereign infrastructure racks. Nash Intelligence scales with your data requirements.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all flex items-center justify-center gap-2" href="mailto:hello@nashintelligence.ai">Book a conversation <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+<a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="/edge/">Explore Nash Edge</a>
+</div>
+<div class="relative py-12 hidden md:block">
+<div class="absolute top-1/2 left-0 w-full h-px bg-outline-variant/20 -z-10"></div>
+<div class="flex justify-between max-w-5xl mx-auto">
+${maturityItems}
+</div>
+</div>
+</section>
+<section class="mb-32 grid md:grid-cols-2 gap-gutter items-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Find the deployment model that matches your stage.</h2>
+<p class="font-body-md text-body-md text-on-tertiary-container">We support your progression from initial AI discovery to dedicated private infrastructure. Every Nash Intelligence deployment maintains full governance, auditability, and data sovereignty, regardless of where the compute lives.</p>
+</section>
+<section class="relative mb-32 max-w-4xl mx-auto">
+<div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary to-secondary -translate-x-1/2 opacity-20"></div>
+<div class="space-y-24">
+${stageCards}
+</div>
+</section>
+<section class="mb-32">
+<div class="bg-surface-container border border-outline-variant/10 rounded-2xl p-10 md:p-16 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-5 pointer-events-none">
+<svg class="w-full h-full text-primary" fill="none" viewBox="0 0 200 200">
+<path d="M0 200 L100 0 L200 200 Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-12 text-center text-on-surface">Adopt more capability over time</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+<div class="text-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">verified_user</span>
+<h4 class="font-headline-lg text-[20px] mb-2 text-on-surface">Control</h4>
+<p class="font-body-md text-on-tertiary-container">From shared cloud governance to total hardware sovereignty.</p>
+</div>
+<div class="text-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">database</span>
+<h4 class="font-headline-lg text-[20px] mb-2 text-on-surface">Capacity</h4>
+<p class="font-body-md text-on-tertiary-container">Linear scaling of organisational memory and agent compute.</p>
+</div>
+<div class="text-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">hub</span>
+<h4 class="font-headline-lg text-[20px] mb-2 text-on-surface">Reach</h4>
+<p class="font-body-md text-on-tertiary-container">Expand from individual pilots to global enterprise deployment.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-32">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface text-center mb-12">Where do you fit?</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+${fitCards}
+</div>
+</div>
+</section>
+<section class="mb-32">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">The platform stays consistent across every deployment.</h2>
+<p class="font-body-md text-on-tertiary-container">The Nash Intelligence OS provides identical capabilities whether running on cloud or rack.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+${sharedCards}
+</div>
+</div>
+</section>
+<section class="mb-32">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-12">Infrastructure progression</h2>
+<div class="overflow-x-auto">
+<div class="min-w-[600px] space-y-4">
+<div class="grid grid-cols-4 bg-surface-container-high text-on-surface p-4 rounded-t-xl font-label-mono text-label-mono uppercase tracking-widest border-b border-outline-variant/20">
+<div class="pl-4">Module</div>
+<div>Desktop</div>
+<div>Team Rack</div>
+<div>Enterprise</div>
+</div>
+${infraRows}
+</div>
+</div>
+</div>
+</section>
+<section class="text-center py-20 bg-surface-container-high rounded-3xl relative overflow-hidden border border-outline-variant/10">
+<div class="relative z-10 px-6">
+<h2 class="font-display-lg text-headline-lg md:text-display-lg text-on-surface mb-6">Find the deployment option that fits your organisation.</h2>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:opacity-90 transition-all" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="mailto:hello@nashintelligence.ai">Explore governance</a>
+</div>
+</div>
+<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+<img alt="" class="w-full h-full object-cover mix-blend-overlay" src="/nash/images/img-nash-platfrom.png">
+</div>
+</section>`;
+}
+
 function pageHtml(page) {
-  return `<!DOCTYPE html><html class="dark" lang="en"><head>
+  let html = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>${page.title}</title>
 <meta name="description" content="${page.description}">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-light.png" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)">
+<link rel="icon" href="/favicon-dark.png" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="/apple-icon-light.png" sizes="180x180" media="(prefers-color-scheme: light)">
+<link rel="apple-touch-icon" href="/apple-icon-dark.png" sizes="180x180" media="(prefers-color-scheme: dark)">
+<script>
+(function() {
+  const stored = localStorage.getItem("nash-theme") || "system";
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const mode = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
+  document.documentElement.classList.toggle("dark", mode === "dark" || (mode === "system" && systemDark));
+  document.documentElement.dataset.theme = mode;
+})();
+</script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@400;500&amp;display=optional" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
 <script id="tailwind-config">
 tailwind.config = {
   darkMode: "class",
   theme: {
     extend: {
       colors: {
-        "on-primary": "#283044", "on-primary-fixed": "#131b2e", "background": "#131315", "surface-container-low": "#1b1b1d",
-        "tertiary": "#c4c7c9", "primary": "#bec6e0", "on-secondary": "#00354a", "secondary-container": "#00a6e0",
-        "surface-container-high": "#2a2a2b", "surface": "#131315", "on-background": "#e4e2e4", "surface-variant": "#353436",
-        "outline": "#909097", "on-surface": "#e4e2e4", "on-surface-variant": "#c6c6cd", "surface-container": "#1f1f21",
-        "primary-container": "#0f172a", "surface-container-lowest": "#0e0e10", "secondary": "#7bd0ff",
-        "error": "#ffb4ab", "inverse-primary": "#565e74", "on-tertiary-container": "#7e8183", "surface-container-highest": "#353436",
-        "outline-variant": "#45464d", "tertiary-container": "#15181a"
+        "on-primary": "rgb(var(--on-primary) / <alpha-value>)",
+        "on-primary-fixed": "rgb(var(--on-primary-fixed) / <alpha-value>)",
+        "background": "rgb(var(--background) / <alpha-value>)",
+        "surface-container-low": "rgb(var(--surface-container-low) / <alpha-value>)",
+        "tertiary": "rgb(var(--tertiary) / <alpha-value>)",
+        "primary": "rgb(var(--primary) / <alpha-value>)",
+        "on-secondary": "rgb(var(--on-secondary) / <alpha-value>)",
+        "secondary-container": "rgb(var(--secondary-container) / <alpha-value>)",
+        "surface-container-high": "rgb(var(--surface-container-high) / <alpha-value>)",
+        "surface": "rgb(var(--surface) / <alpha-value>)",
+        "on-background": "rgb(var(--on-background) / <alpha-value>)",
+        "surface-variant": "rgb(var(--surface-variant) / <alpha-value>)",
+        "outline": "rgb(var(--outline) / <alpha-value>)",
+        "on-surface": "rgb(var(--on-surface) / <alpha-value>)",
+        "on-surface-variant": "rgb(var(--on-surface-variant) / <alpha-value>)",
+        "surface-container": "rgb(var(--surface-container) / <alpha-value>)",
+        "primary-container": "rgb(var(--primary-container) / <alpha-value>)",
+        "surface-container-lowest": "rgb(var(--surface-container-lowest) / <alpha-value>)",
+        "secondary": "rgb(var(--secondary) / <alpha-value>)",
+        "error": "rgb(var(--error) / <alpha-value>)",
+        "inverse-primary": "rgb(var(--inverse-primary) / <alpha-value>)",
+        "on-tertiary-container": "rgb(var(--on-tertiary-container) / <alpha-value>)",
+        "surface-container-highest": "rgb(var(--surface-container-highest) / <alpha-value>)",
+        "outline-variant": "rgb(var(--outline-variant) / <alpha-value>)",
+        "tertiary-container": "rgb(var(--tertiary-container) / <alpha-value>)"
       },
       borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
       spacing: { "margin-mobile": "16px", "container-max": "1440px", "margin-desktop": "64px", gutter: "24px", base: "8px" },
@@ -317,23 +584,91 @@ tailwind.config = {
 }
 </script>
 <style>
+:root {
+  color-scheme: light;
+  --on-primary: 255 255 255;
+  --on-primary-fixed: 255 255 255;
+  --background: 248 250 252;
+  --surface-container-low: 241 245 249;
+  --tertiary: 79 83 85;
+  --primary: 11 16 32;
+  --on-secondary: 0 52 74;
+  --secondary-container: 196 231 255;
+  --surface-container-high: 226 232 240;
+  --surface: 255 255 255;
+  --on-background: 11 16 32;
+  --surface-variant: 241 245 249;
+  --outline: 101 116 139;
+  --on-surface: 11 16 32;
+  --on-surface-variant: 79 83 85;
+  --surface-container: 255 255 255;
+  --primary-container: 218 226 253;
+  --surface-container-lowest: 248 250 252;
+  --secondary: 0 120 162;
+  --error: 186 26 26;
+  --inverse-primary: 190 198 224;
+  --on-tertiary-container: 79 83 85;
+  --surface-container-highest: 203 213 225;
+  --outline-variant: 203 213 225;
+  --tertiary-container: 224 227 229;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(11, 16, 32, 0.08);
+  --circuit-dot: rgba(11, 16, 32, 0.035);
+  --glow-blue: rgba(0, 120, 162, 0.16);
+}
+.dark {
+  color-scheme: dark;
+  --on-primary: 40 48 68;
+  --on-primary-fixed: 19 27 46;
+  --background: 19 19 21;
+  --surface-container-low: 27 27 29;
+  --tertiary: 196 199 201;
+  --primary: 190 198 224;
+  --on-secondary: 0 53 74;
+  --secondary-container: 0 166 224;
+  --surface-container-high: 42 42 43;
+  --surface: 19 19 21;
+  --on-background: 228 226 228;
+  --surface-variant: 53 52 54;
+  --outline: 144 144 151;
+  --on-surface: 228 226 228;
+  --on-surface-variant: 198 198 205;
+  --surface-container: 31 31 33;
+  --primary-container: 15 23 42;
+  --surface-container-lowest: 14 14 16;
+  --secondary: 123 208 255;
+  --error: 255 180 171;
+  --inverse-primary: 86 94 116;
+  --on-tertiary-container: 126 129 131;
+  --surface-container-highest: 53 52 54;
+  --outline-variant: 69 70 77;
+  --tertiary-container: 21 24 26;
+  --glass-bg: rgba(31, 31, 33, 0.72);
+  --glass-border: rgba(144, 144, 151, 0.12);
+  --circuit-dot: rgba(255, 255, 255, 0.035);
+  --glow-blue: rgba(123, 208, 255, 0.15);
+}
 .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-.glow-blue { box-shadow: 0 0 15px rgba(123, 208, 255, 0.15); }
-.glass-panel { background: rgba(31, 31, 33, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(144, 144, 151, 0.1); }
-.circuit-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(144, 144, 151, 0.2), transparent); }
+.glow-blue { box-shadow: 0 0 15px var(--glow-blue); }
+.glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); }
+.circuit-line { height: 1px; background: linear-gradient(90deg, transparent, rgb(var(--outline-variant) / 0.45), transparent); }
+.circuit-bg { background-image: radial-gradient(circle at 2px 2px, var(--circuit-dot) 1px, transparent 0); background-size: 24px 24px; }
 </style>
 </head>
-<body class="bg-background text-on-background font-body-md selection:bg-secondary/30 selection:text-secondary overflow-x-hidden">
+<body class="circuit-bg bg-background text-on-background font-body-md selection:bg-secondary/30 selection:text-secondary overflow-x-hidden transition-colors duration-300">
 <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/10 shadow-sm">
 <nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
 <a class="flex items-center gap-3" href="/">
-<img alt="Nash Intelligence" class="h-10 w-10" src="/nash/icons/nash-intelligence-dark.png">
+<img alt="Nash Intelligence" class="h-10 w-10" src="/nash/icons/nash-intelligence-light.png">
 <span class="font-display-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight">Nash Intelligence</span>
 </a>
 <div class="hidden md:flex items-center gap-8">
 ${nav(page.key)}
 </div>
+<div class="flex items-center gap-3">
+${themeToggle()}
 <a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+</div>
 </nav>
 </header>
 <main class="pt-20">
@@ -407,6 +742,7 @@ ${patternCards(page.patterns)}
 </div>
 </div>
 </section>
+${deployExtraSections(page)}
 <section class="py-24 relative">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
 <div class="bg-surface border border-outline-variant/30 rounded-2xl p-12 md:p-20 text-center relative overflow-hidden">
@@ -431,7 +767,7 @@ ${patternCards(page.patterns)}
 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
 <div class="col-span-2">
 <div class="flex items-center gap-3 mb-6">
-<img alt="Nash" class="h-8 w-8" src="/nash/icons/nash-intelligence-dark.png">
+<img alt="Nash" class="h-8 w-8" src="/nash/icons/nash-intelligence-light.png">
 <span class="font-display-lg text-headline-lg text-on-surface">Nash</span>
 </div>
 <p class="font-body-md text-body-md text-on-tertiary-container max-w-xs mb-8">Secure, governed AI infrastructure for the modern enterprise.</p>
@@ -460,8 +796,60 @@ ${navItems.map(([key, label, href]) => `<a class="font-label-mono text-label-mon
 </div>
 </div>
 </footer>
+<script>
+(function() {
+  const modes = ["light", "dark", "system"];
+  const labels = { light: "Theme: Light", dark: "Theme: Dark", system: "Theme: System" };
+  const icons = { light: "light_mode", dark: "dark_mode", system: "desktop_windows" };
+  const button = document.getElementById("theme-toggle");
+  const icon = document.getElementById("theme-toggle-icon");
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function currentMode() {
+    const stored = localStorage.getItem("nash-theme") || "system";
+    return modes.includes(stored) ? stored : "system";
+  }
+
+  function applyTheme(mode) {
+    const useDark = mode === "dark" || (mode === "system" && media.matches);
+    document.documentElement.classList.toggle("dark", useDark);
+    document.documentElement.dataset.theme = mode;
+    localStorage.setItem("nash-theme", mode);
+    if (button && icon) {
+      button.dataset.themeMode = mode;
+      button.title = labels[mode];
+      button.setAttribute("aria-label", labels[mode]);
+      icon.textContent = icons[mode];
+    }
+  }
+
+  applyTheme(currentMode());
+
+  if (button) {
+    button.addEventListener("click", function() {
+      const mode = currentMode();
+      applyTheme(modes[(modes.indexOf(mode) + 1) % modes.length]);
+    });
+  }
+
+  media.addEventListener("change", function() {
+    if (currentMode() === "system") {
+      applyTheme("system");
+    }
+  });
+})();
+</script>
 </body></html>
 `;
+
+  if (page.key === "deploy") {
+    html = html.replace(
+      /<main class="pt-20">[\s\S]*?<\/main>/,
+      `<main class="pt-32 pb-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">\n${deployExtraSections(page)}\n</main>`,
+    );
+  }
+
+  return html;
 }
 
 mkdirSync(outputDir, { recursive: true });
