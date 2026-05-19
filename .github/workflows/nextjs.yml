@@ -71,6 +71,8 @@ jobs:
         env:
           GITHUB_PAGES_BASE_PATH: /nashintelligence.ai
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Materialize exact supplied HTML
+        run: node scripts/materialize-exact-html.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,5 +1,0 @@
-import { Cta, FeatureGrid, Hero, SectionIntro } from "@/components/SiteSections";
-
-export default function AboutPage() {
-  return <><Hero kicker="About Nash" title="A control layer for enterprise intelligence." body="Nash Intelligence is built around a simple principle: organisations should get the benefits of AI without losing authority over knowledge, work, data, or deployment." image="/nash/icons/nash-intelligence-dark.png" cta="Talk to Nash" secondary="Explore platform" /><section className="nash-section"><div className="nash-container"><SectionIntro kicker="Principles" title="Governance is not a feature. It is the product boundary." /><FeatureGrid features={[{title:"Private by design",body:"Deployment should respect where data, compute, and operational authority need to live.",icon:"▣"},{title:"Auditable by default",body:"Meaningful answers and actions should leave records that people can inspect and trust.",icon:"◷"},{title:"Human authority",body:"Agents can assist, coordinate, and execute, but sensitive work must keep accountable humans in the loop.",icon:"◎"}]} /></div></section><Cta /></>;
-}

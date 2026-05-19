@@ -1,0 +1,402 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Nash Mind | Organisational Memory for Governed AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#283044",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#131315",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-container-low": "#1b1b1d",
+                        "tertiary": "#c4c7c9",
+                        "surface-bright": "#39393b",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary": "#bec6e0",
+                        "on-secondary": "#00354a",
+                        "secondary-container": "#00a6e0",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2b",
+                        "surface": "#131315",
+                        "on-background": "#e4e2e4",
+                        "surface-variant": "#353436",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-tint": "#bec6e0",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#bec6e0",
+                        "outline": "#909097",
+                        "on-surface": "#e4e2e4",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-container": "#1f1f21",
+                        "primary-container": "#0f172a",
+                        "on-secondary-container": "#00374d",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#e4e2e4",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-primary-container": "#798098",
+                        "on-tertiary": "#2d3133",
+                        "surface-container-lowest": "#0e0e10",
+                        "secondary": "#7bd0ff",
+                        "inverse-on-surface": "#303032",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-dim": "#131315",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "on-secondary-fixed": "#001e2c",
+                        "inverse-primary": "#565e74",
+                        "on-tertiary-container": "#7e8183",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353436",
+                        "outline-variant": "#45464d",
+                        "tertiary-container": "#15181a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e4e2e4;
+            -webkit-font-smoothing: antialiased;
+        }
+        .circuit-line {
+            background: linear-gradient(90deg, transparent, rgba(190, 198, 224, 0.2), transparent);
+            height: 1px;
+            width: 100%;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 33, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(144, 144, 151, 0.1);
+        }
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(123, 208, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface/80 shadow-sm border-b border-outline-variant/10 h-20">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<img alt="Nash Intelligence Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUU6oICs-08to1rrdvk_eOcTuZ7vg7mEIpGKeL8mm2nCrDlxRx1QCvt-dc24GaqCpvLwbwLuzhnxNxTXSXITi3mgSEZRAhXf_uDv10jJs5DQoxKKXdyt4eFwI4_tLwTKd8mmFUfGvZXPGhI0hNqj-CqBqViE7kUtBtg84MWqDSHPTbGaQdUHTg2pHItwL7BorI4eqDXh6BdNclFMKOwshrwXTHQrfHyYam5SUA2EpvjMOYJk5pR_MZuSlvJFz_JDGHD27WwNQl4RNB">
+<span class="font-display-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight">Nash Intelligence</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Platform</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Edge</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Mind</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Axis</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Use Cases</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">About</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold hover:scale-95 transition-transform">
+                Book a conversation
+            </button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Section 1: Hero -->
+<section class="relative min-h-[80vh] flex flex-col justify-center items-center px-margin-mobile md:px-margin-desktop py-24">
+<div class="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]"></div>
+</div>
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+<div class="text-left">
+<span class="inline-flex items-center px-3 py-1 bg-primary-container text-primary rounded-full font-label-mono text-label-mono mb-6 uppercase tracking-widest border border-primary/20">
+<span class="w-2 h-2 bg-primary rounded-full mr-2 animate-pulse"></span> Core Infrastructure
+                    </span>
+<h1 class="font-display-lg text-[40px] md:text-[64px] leading-tight mb-6 text-on-surface">
+                        Organisational memory for governed AI.
+                    </h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+                        Structuring organisational knowledge so AI systems can work with context, evidence, relationships, history and approved decisions.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold flex items-center gap-2 hover:bg-white transition-colors">
+                            Request Demo <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border border-outline-variant text-on-surface px-8 py-4 rounded-lg font-bold hover:bg-surface-container transition-colors">
+                            Technical Docs
+                        </button>
+</div>
+</div>
+<div class="flex justify-center items-center relative">
+<div class="absolute inset-0 bg-secondary/5 rounded-full blur-3xl scale-75"></div>
+<img alt="Nash Mind cognitive foundation server for SMEs - a sleek server unit with a glowing knowledge graph visualization" class="w-full max-w-[500px] object-contain relative z-10 rounded-2xl shadow-2xl" src="https://lh3.googleusercontent.com/aida/ADBb0ujhdXWhkyO5wjjuGnUtDnr3rDzmxqTjo2S5pbYhb7YifHJwmMVO2Epk85D8Mw5SS-6VRv93Pxo_03m5IF4FLE1zCECv3owr0wbENm90VY72gp-HBMcOeBujbvviY-vbp1XX3z2jeA3-1SafhG_Aua0q8OzA_UGvqNX81ruuujZVwA9DYQXk8tCmEV102p_1osGyqysm4iGgYHGrfrlEyGbw8oIHToLWfrHRihqzAiCbUp2b3cnV4V6Xu_Q">
+</div>
+</div>
+</section>
+<!-- Section 2: The Problem -->
+<section class="py-24 bg-surface-container-lowest border-y border-outline-variant/10">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<div class="mb-16">
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest block mb-4">The Challenge</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface max-w-3xl mx-auto">
+                        "AI is only as useful as the knowledge it can safely understand."
+                    </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl text-left">
+<span class="material-symbols-outlined text-secondary mb-4 text-3xl">database_off</span>
+<h3 class="font-headline-lg-mobile text-on-surface mb-3">Siloed Context</h3>
+<p class="text-on-surface-variant">Knowledge is trapped in emails, documents, and informal chats, invisible to standard AI retrievals.</p>
+</div>
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl text-left">
+<span class="material-symbols-outlined text-secondary mb-4 text-3xl">history_edu</span>
+<h3 class="font-headline-lg-mobile text-on-surface mb-3">Ephemeral Logic</h3>
+<p class="text-on-surface-variant">Decisions lack lineage. Current AI can't reconstruct why a choice was made six months ago.</p>
+</div>
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl text-left">
+<span class="material-symbols-outlined text-secondary mb-4 text-3xl">gavel</span>
+<h3 class="font-headline-lg-mobile text-on-surface mb-3">Governance Gaps</h3>
+<p class="text-on-surface-variant">Standard RAG systems often ignore policy hierarchies and approved organisational guardrails.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Bento Grid - What Nash Mind Structures -->
+<section class="py-32 bg-surface">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest block mb-4">The Framework</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">What Nash Mind Structures</h2>
+</div>
+<div class="h-px flex-grow bg-outline-variant/20 mx-8 mb-4 hidden md:block"></div>
+<p class="text-on-surface-variant max-w-sm">From raw data to verified organisational intelligence.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+<!-- Entities -->
+<div class="md:col-span-1 md:row-span-1 glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-primary/40 transition-colors">
+<div>
+<span class="material-symbols-outlined text-primary mb-4" style="font-variation-settings: 'FILL' 1;">dataset</span>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">Entities</h4>
+<p class="text-on-tertiary-container text-sm">Unified definitions of people, assets, and products across the stack.</p>
+</div>
+<div class="circuit-line mt-4 group-hover:bg-primary/20 transition-all"></div>
+</div>
+<!-- Relationships -->
+<div class="md:col-span-2 md:row-span-1 glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-primary/40 transition-colors bg-gradient-to-br from-surface-container to-surface">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="flex-1">
+<span class="material-symbols-outlined text-primary mb-4" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">Relationships</h4>
+<p class="text-on-tertiary-container text-sm">Mapping the complex graph of how entities interact, depend, and influence outcomes.</p>
+</div>
+<div class="flex-1 hidden md:block border-l border-outline-variant/10 pl-8">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-variant rounded font-label-mono text-[10px] text-on-surface-variant border border-outline-variant/20">DEPT_LINK</span>
+<span class="px-2 py-1 bg-surface-variant rounded font-label-mono text-[10px] text-on-surface-variant border border-outline-variant/20">ASSET_OWNER</span>
+<span class="px-2 py-1 bg-surface-variant rounded font-label-mono text-[10px] text-on-surface-variant border border-outline-variant/20">LOGIC_DEP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence -->
+<div class="md:col-span-1 md:row-span-1 glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-primary/40 transition-colors">
+<div>
+<span class="material-symbols-outlined text-primary mb-4" style="font-variation-settings: 'FILL' 1;">verified</span>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">Evidence</h4>
+<p class="text-on-tertiary-container text-sm">Attaching verifiable citations and original sources to every AI inference.</p>
+</div>
+<div class="circuit-line mt-4 group-hover:bg-primary/20 transition-all"></div>
+</div>
+<!-- Decisions & Policies -->
+<div class="md:col-span-1 md:row-span-1 glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-primary/40 transition-colors">
+<div>
+<div class="flex gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">rule</span>
+<span class="material-symbols-outlined text-primary">policy</span>
+</div>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">Decisions &amp; Policies</h4>
+<p class="text-on-tertiary-container text-sm">Codifying approved business logic and legal guardrails into the AI context.</p>
+</div>
+</div>
+<!-- Workflows -->
+<div class="md:col-span-1 md:row-span-1 glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-primary/40 transition-colors overflow-hidden relative">
+<div class="z-10 relative">
+<span class="material-symbols-outlined text-primary mb-4" style="font-variation-settings: 'FILL' 1;">flowsheet</span>
+<h4 class="font-headline-lg-mobile text-on-surface mb-2">Workflows</h4>
+<p class="text-on-tertiary-container text-sm">Capturing the sequence of history that led to the current state.</p>
+</div>
+<div class="absolute bottom-0 right-0 w-24 h-24 bg-primary/5 rounded-tl-full -mr-4 -mb-4"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Why It Matters - Comparative Logic -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest block mb-4">The Nash Advantage</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Why It Matters</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Meaning vs Search -->
+<div class="p-1 rounded-xl bg-gradient-to-b from-outline-variant/20 to-transparent">
+<div class="bg-surface-container p-10 h-full rounded-lg">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_graph</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface">Meaning vs Search</h3>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                                Standard AI search (RAG) looks for keywords and semantic similarity. Nash Mind understands the <strong>meaning</strong> of your data—how a project in 2022 impacts a budget today through complex organisational dependencies.
+                            </p>
+<div class="space-y-3 font-label-mono text-[13px]">
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-on-tertiary-container">Similarity Search</span>
+<span class="text-error">Probability based</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-on-tertiary-container">Nash Mind Graph</span>
+<span class="text-secondary">Truth based</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Context vs Chat -->
+<div class="p-1 rounded-xl bg-gradient-to-b from-outline-variant/20 to-transparent">
+<div class="bg-surface-container p-10 h-full rounded-lg">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface">Context vs Chat</h3>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                                AI chat is ephemeral. Nash Mind provides a persistent, governed <strong>Context Layer</strong>. It isn't just about the current conversation; it's about the decades of institutional history that inform it.
+                            </p>
+<div class="space-y-3 font-label-mono text-[13px]">
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-on-tertiary-container">LLM Memory</span>
+<span class="text-error">Limited Window</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-on-tertiary-container">Nash context</span>
+<span class="text-secondary">Infinite History</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: CTA -->
+<section class="py-32 relative overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent z-10"></div>
+<img alt="Governed Infrastructure" class="w-full h-full object-cover grayscale opacity-20" data-alt="A macro photograph of high-end server rack lighting with deep blue and soft white fiber optic cables glowing in a dark data center. The lighting is moody and cinematic, emphasizing a sense of high-speed data transfer and secure computing. The focus is sharp on the glowing nodes, creating a bokeh effect in the background, matching a dark navy enterprise tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp_K9PTa0KGqzAQNXU4vyD_qRE6469NfoyNak4AGoQFBZ-hOgNYy4tDWEo8Lc67Mqq0y3m0kFFFov-TDncBV1bGLv8VwQMw-OIMpPnfv5cGnovFpvaMRAPJMMAjgwqIoQwkUrCmNS_JvtOgmV4_ZxNAO0e2UHU66odSi1wO8ebz-Mq3pVMgilg5DWYfq2_u34NDeTp1SUTkCPJ1u_A1k6N5vYq2GoYmH95foIVKBhLnipjCckkeVNOb67wON_YNq-StCHVHfbEFA9-">
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-20 text-center">
+<div class="glass-panel max-w-4xl mx-auto p-12 md:p-20 rounded-3xl glow-blue">
+<h2 class="font-display-lg text-[32px] md:text-[48px] text-on-surface mb-8 leading-tight">
+                        Give AI access to governed organisational context.
+                    </h2>
+<p class="text-on-surface-variant text-lg mb-12 max-w-2xl mx-auto">
+                        Enable intelligent systems that don't just speak, but actually know. Secure, sovereign, and structured for the enterprise.
+                    </p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<button class="bg-primary text-on-primary px-10 py-5 rounded-lg font-bold text-lg hover:scale-105 transition-transform">
+                            Deploy Nash Mind
+                        </button>
+<button class="bg-white/10 text-on-surface border border-white/20 backdrop-blur-md px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/20 transition-colors">
+                            Technical Inquiry
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/20 relative w-full">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
+<div class="col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<img alt="Nash Intelligence Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUU6oICs-08to1rrdvk_eOcTuZ7vg7mEIpGKeL8mm2nCrDlxRx1QCvt-dc24GaqCpvLwbwLuzhnxNxTXSXITi3mgSEZRAhXf_uDv10jJs5DQoxKKXdyt4eFwI4_tLwTKd8mmFUfGvZXPGhI0hNqj-CqBqViE7kUtBtg84MWqDSHPTbGaQdUHTg2pHItwL7BorI4eqDXh6BdNclFMKOwshrwXTHQrfHyYam5SUA2EpvjMOYJk5pR_MZuSlvJFz_JDGHD27WwNQl4RNB">
+<span class="font-display-lg text-headline-lg text-on-surface">Nash Intelligence</span>
+</div>
+<p class="text-on-tertiary-container font-label-mono text-label-mono max-w-xs">
+                    Building the sovereign stack for the next generation of industrial intelligence. 
+                </p>
+</div>
+<div>
+<h5 class="text-primary font-bold mb-6 font-label-mono text-label-mono uppercase tracking-widest">Platform</h5>
+<ul class="space-y-4">
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Platform</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Edge</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Mind</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Axis</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-primary font-bold mb-6 font-label-mono text-label-mono uppercase tracking-widest">Trust</h5>
+<ul class="space-y-4">
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Governance</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Safety</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-primary font-bold mb-6 font-label-mono text-label-mono uppercase tracking-widest">Company</h5>
+<ul class="space-y-4">
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">About</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Careers</a></li>
+<li class=""><a class="text-on-tertiary-container hover:text-secondary transition-colors duration-200 font-label-mono text-label-mono" href="#">Privacy</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 border-t border-outline-variant/10 flex justify-between items-center">
+<p class="text-on-tertiary-container font-label-mono text-label-mono">
+                © 2024 Nash Intelligence. All rights reserved. Secure, governed AI infrastructure.
+            </p>
+<div class="flex gap-4">
+<a class="text-on-tertiary-container hover:text-secondary" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#283044",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#131315",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-container-low": "#1b1b1d",
+                        "tertiary": "#c4c7c9",
+                        "surface-bright": "#39393b",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary": "#bec6e0",
+                        "on-secondary": "#00354a",
+                        "secondary-container": "#00a6e0",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2b",
+                        "surface": "#131315",
+                        "on-background": "#e4e2e4",
+                        "surface-variant": "#353436",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-tint": "#bec6e0",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#bec6e0",
+                        "outline": "#909097",
+                        "on-surface": "#e4e2e4",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-container": "#1f1f21",
+                        "primary-container": "#0f172a",
+                        "on-secondary-container": "#00374d",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#e4e2e4",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-primary-container": "#798098",
+                        "on-tertiary": "#2d3133",
+                        "surface-container-lowest": "#0e0e10",
+                        "secondary": "#7bd0ff",
+                        "inverse-on-surface": "#303032",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-dim": "#131315",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "on-secondary-fixed": "#001e2c",
+                        "inverse-primary": "#565e74",
+                        "on-tertiary-container": "#7e8183",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353436",
+                        "outline-variant": "#45464d",
+                        "tertiary-container": "#15181a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-blue {
+            box-shadow: 0 0 15px rgba(123, 208, 255, 0.15);
+        }
+        .glass-panel {
+            background: rgba(31, 31, 33, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(144, 144, 151, 0.1);
+        }
+        .circuit-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(144, 144, 151, 0.2), transparent);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary/30 selection:text-secondary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface/80 border-b border-outline-variant/10 shadow-sm">
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<img alt="Nash Intelligence" class="h-10 w-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUU6oICs-08to1rrdvk_eOcTuZ7vg7mEIpGKeL8mm2nCrDlxRx1QCvt-dc24GaqCpvLwbwLuzhnxNxTXSXITi3mgSEZRAhXf_uDv10jJs5DQoxKKXdyt4eFwI4_tLwTKd8mmFUfGvZXPGhI0hNqj-CqBqViE7kUtBtg84MWqDSHPTbGaQdUHTg2pHItwL7BorI4eqDXh6BdNclFMKOwshrwXTHQrfHyYam5SUA2EpvjMOYJk5pR_MZuSlvJFz_JDGHD27WwNQl4RNB">
+<span class="font-display-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight">Nash Intelligence</span>
+</div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Platform</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Edge</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Mind</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Axis</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Use Cases</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">About</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest">
+                Book a conversation
+            </button>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Section 1: Hero -->
+<section class="relative overflow-hidden py-24 md:py-32">
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary to-transparent"></div>
+<div class="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-secondary to-transparent"></div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-16 items-center">
+<div class="z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-outline-variant rounded mb-6">
+<span class="material-symbols-outlined text-secondary text-sm">dns</span>
+<span class="font-label-mono text-label-mono text-secondary uppercase">Product: Edge</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 leading-tight">
+                        Private AI deployment <br><span class="text-primary">under your control.</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-10 max-w-lg">
+                        Private deployment for organisations needing AI close to their data, systems, and operational boundaries.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all">
+                            Request technical spec
+                        </button>
+<button class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all">
+                            View Documentation
+                        </button>
+</div>
+</div>
+<div class="relative flex justify-center items-center">
+<div class="absolute w-[120%] h-[120%] bg-secondary/5 blur-[120px] rounded-full"></div>
+<img alt="Nash Edge Hardware Appliance" class="relative z-10 w-full max-w-lg rounded-2xl shadow-2xl object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujPqUXoyqzmzaL2nFiuG7HAlKg0_EFrVQSltE6aGCDQZwBRgAFRTytDFagakVdX3vvaWjqck6MQA3pbAxfJ1mCVCRmXcjR89hmW1Dm59LACKDQQBewG419U8ky-Ii4IEg1xCq9c9y6fS5whSRBfesSnr7l7AoIoyYrcKRafAVwns0OUxo3E623foOHolMCWZCWOMF57-G7qbG4NQuWXYoQ4IZL8ZvcjPSb1Tg2WLwJTX1gIhFHCyCA2Y8lJ">
+</div>
+</div>
+</section>
+<!-- Section 2: Problem Statement -->
+<section class="py-20 bg-surface-container-lowest relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<div class="max-w-3xl mx-auto border-x border-outline-variant/10 px-8">
+<span class="material-symbols-outlined text-error mb-4">shield_with_heart</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">
+                        The Governance Gap
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-xl italic leading-relaxed">
+                        "Not every organisation can send sensitive work to public AI tools. When data integrity and physical location are non-negotiable, public cloud intelligence becomes a liability."
+                    </p>
+</div>
+</div>
+</section>
+<!-- Section 3: What Nash Edge Provides -->
+<section class="py-24 relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16 flex items-end justify-between border-b border-outline-variant/20 pb-8">
+<div>
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-2">Capabilities</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">What Nash Edge Provides</h2>
+</div>
+<div class="hidden md:block h-px w-1/3 bg-outline-variant/20 mb-4"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-gutter">
+<!-- Feature 1 -->
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-secondary/30">
+<div class="h-12 w-12 rounded bg-secondary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Private boundary</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Compute sits within your existing VPC or physical firewalls. No external inference calls, no data leakage, total isolation.
+                        </p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-secondary uppercase">Active Governance</span>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-primary/30">
+<div class="h-12 w-12 rounded bg-primary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Customer-controlled</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Manage your own weights, fine-tuning datasets, and versioning. You decide when and how the system updates.
+                        </p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-primary uppercase">Full Sovereignty</span>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-tertiary/30">
+<div class="h-12 w-12 rounded bg-tertiary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Local access</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Ultra-low latency for real-time systems. Access intelligence directly over LAN or high-speed fabric without internet hops.
+                        </p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-tertiary uppercase">Latency &lt; 10ms</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Deployment Patterns (Bento Grid) -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">Deployment Patterns</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Three architectures designed for absolute sovereignty.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Pattern 1 -->
+<div class="md:col-span-8 bg-surface p-10 rounded-xl border border-outline-variant/20 flex flex-col md:flex-row gap-10 items-center">
+<div class="flex-1">
+<span class="font-label-mono text-label-mono text-secondary mb-4 block">01 Cloud Instance</span>
+<h3 class="font-headline-lg text-on-surface mb-4">Private Cloud</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                                Deploy Nash Edge within your AWS Nitro Enclaves or Azure Confidential Computing environments. Scale elastically while maintaining cryptographic isolation from the cloud provider.
+                            </p>
+<ul class="space-y-3 font-label-mono text-label-mono text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">check_circle</span> TERRAFORM READY</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">check_circle</span> KUBERNETES NATIVE</li>
+</ul>
+</div>
+<div class="w-full md:w-1/2 h-64 rounded-lg bg-surface-container-high overflow-hidden border border-outline-variant/20 relative group">
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="p-8 font-label-mono text-[10px] text-secondary/40">
+<code>&gt; terraform init nash_edge_vpc<br>&gt; initializing provider...<br>&gt; establishing enclave [OK]</code>
+</div>
+</div>
+</div>
+<!-- Pattern 2 -->
+<div class="md:col-span-4 bg-surface p-10 rounded-xl border border-outline-variant/20 flex flex-col">
+<span class="font-label-mono text-label-mono text-primary mb-4 block">02 Physical Rack</span>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">On-premise</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                            Direct installation on your own H100/A100 server clusters. Nash Edge software operates as a bare-metal orchestrator for local LLM inference.
+                        </p>
+<div class="mt-8 flex justify-center">
+<span class="material-symbols-outlined text-[64px] text-primary/40">developer_board</span>
+</div>
+</div>
+<!-- Pattern 3 -->
+<div class="md:col-span-12 bg-primary-container p-12 rounded-xl border border-primary/20 flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-secondary/5 to-transparent"></div>
+<div class="z-10 max-w-xl">
+<span class="font-label-mono text-label-mono text-secondary mb-4 block">03 Turnkey Solution</span>
+<h3 class="font-headline-lg text-on-surface mb-4">Edge Appliance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                A pre-configured hardware unit shipped to your data center. Plug-and-play Nash Intelligence with dedicated GPU acceleration, air-gapped capability, and hardware-level encryption.
+                            </p>
+</div>
+<div class="z-10 mt-10 md:mt-0">
+<img alt="Edge Appliance" class="h-48 drop-shadow-[0_0_30px_rgba(189,198,224,0.2)]" src="https://lh3.googleusercontent.com/aida/ADBb0uj4tZ3zSa-WWyXzaANlfDV0htKRQRz_18F0LhGi2JxjpuT9ENbqN3iR0gSa8h-00NFmTtunn2Nbobk9JOcqXccDc1MMhAOA-csXzxCoI-jB56tLAPHzH3bOCcrT6nceMa0CJzb6EqXS7fQvM1bvOct5IZ3A4u5Yk_vXcj-GoRWU1zXWUCoY4loKhWxEn7DoC8LYGWQTtGMUCXswYMK25M-B8O8IvoO-0s-eBpkacK3_3hyPwHTMo1EqJl0">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: CTA -->
+<section class="py-24 relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="bg-surface border border-outline-variant/30 rounded-2xl p-12 md:p-20 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-5 pointer-events-none">
+<div class="grid grid-cols-12 h-full w-full">
+<div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div>
+</div>
+</div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-8">
+                            Need AI inside your own boundaries?
+                        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-12 text-lg">
+                            Consult with our infrastructure engineers to design your private intelligence layer. Secure, governed, and entirely yours.
+                        </p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<button class="bg-primary text-on-primary-fixed px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:scale-[1.02] transition-transform">
+                                Request a Demo
+                            </button>
+<button class="border border-outline text-on-surface px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all">
+                                Speak to an Engineer
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/20 relative">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
+<div class="col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<img alt="Nash" class="h-8 w-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUU6oICs-08to1rrdvk_eOcTuZ7vg7mEIpGKeL8mm2nCrDlxRx1QCvt-dc24GaqCpvLwbwLuzhnxNxTXSXITi3mgSEZRAhXf_uDv10jJs5DQoxKKXdyt4eFwI4_tLwTKd8mmFUfGvZXPGhI0hNqj-CqBqViE7kUtBtg84MWqDSHPTbGaQdUHTg2pHItwL7BorI4eqDXh6BdNclFMKOwshrwXTHQrfHyYam5SUA2EpvjMOYJk5pR_MZuSlvJFz_JDGHD27WwNQl4RNB">
+<span class="font-display-lg text-headline-lg text-on-surface">Nash</span>
+</div>
+<p class="font-body-md text-body-md text-on-tertiary-container max-w-xs mb-8">
+                    Secure, governed AI infrastructure for the modern enterprise.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-tertiary-container cursor-pointer hover:text-secondary">share</span>
+<span class="material-symbols-outlined text-on-tertiary-container cursor-pointer hover:text-secondary">terminal</span>
+<span class="material-symbols-outlined text-on-tertiary-container cursor-pointer hover:text-secondary">shield</span>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Core</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Platform</a>
+<a class="font-label-mono text-label-mono text-primary transition-colors" href="#">Edge</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Mind</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Axis</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Trust</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Governance</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Safety</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Security</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Privacy</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Company</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">About</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">Careers</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="#">News</a>
+</div>
+<div class="col-span-full mt-12 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-mono text-label-mono text-on-tertiary-container">© 2024 Nash Intelligence. All rights reserved. Secure, governed AI infrastructure.</p>
+<div class="flex gap-6">
+<span class="font-label-mono text-[10px] text-tertiary/40">SYSTEM STATUS: OPERATIONAL</span>
+<span class="font-label-mono text-[10px] text-tertiary/40">ENCRYPTION: AES-256-GCM</span>
+</div>
+</div>
+</div>
+</footer>
+
+
+</body></html>
