@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, statSync, unlinkSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const pages = [
@@ -9,8 +9,24 @@ const pages = [
   ["site-nash-usecases.html", ["use-cases.html", "use-cases/index.html"]],
 ];
 
+const basePath = (process.env.GITHUB_PAGES_BASE_PATH || "").replace(/\/$/, "");
+
+function withBasePath(html) {
+  if (!basePath) {
+    return html;
+  }
+
+  return html
+    .replace(/href="\/(edge|mind|axis|use-cases)?\/?"/g, (_match, route = "") => {
+      const suffix = route ? `/${route}/` : "/";
+      return `href="${basePath}${suffix}"`;
+    })
+    .replace(/src="\/(nash\/[^"]+)"/g, (_match, asset) => `src="${basePath}/${asset}"`);
+}
+
 for (const [source, outputs] of pages) {
   const sourcePath = join(process.cwd(), "src", "exact-html", source);
+  const html = withBasePath(readFileSync(sourcePath, "utf8"));
 
   for (const output of outputs) {
     const outputPath = join(process.cwd(), "out", output);
@@ -21,7 +37,7 @@ for (const [source, outputs] of pages) {
     }
 
     mkdirSync(outputDir, { recursive: true });
-    copyFileSync(sourcePath, outputPath);
+    writeFileSync(outputPath, html);
   }
 }
 

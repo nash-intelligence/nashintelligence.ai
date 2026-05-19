@@ -64,7 +64,14 @@
 <body class="font-sans">
 <!-- BEGIN: Navigation -->
 <nav class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-white/5 py-4 px-6 flex justify-between items-center" data-purpose="main-nav">
-<div class="font-bold text-xl tracking-tight">Nash Intelligence</div>
+<a class="font-bold text-xl tracking-tight text-nash-text" href="/">Nash Intelligence</a>
+<div class="hidden md:flex items-center gap-8 text-sm font-medium">
+<a class="text-nash-muted hover:text-nash-text transition-colors" href="/">Platform</a>
+<a class="text-nash-muted hover:text-nash-text transition-colors" href="/edge/">Edge</a>
+<a class="text-nash-muted hover:text-nash-text transition-colors" href="/mind/">Mind</a>
+<a class="text-nash-text border-b border-nash-accent pb-1" href="/axis/">Axis</a>
+<a class="text-nash-muted hover:text-nash-text transition-colors" href="/use-cases/">Use Cases</a>
+</div>
 <button class="bg-nash-text text-black px-4 py-1.5 rounded-nash text-sm font-medium">Book a conversation</button>
 </nav>
 <!-- END: Navigation -->
@@ -302,50 +309,49 @@
 </section>
 <!-- END: Workflow Example -->
 <!-- BEGIN: Ecosystem Section -->
-<section class="py-20 px-6 bg-[#0e0e10]" data-purpose="ecosystem">
-<div class="max-w-md mx-auto text-center mb-12">
-<h2 class="text-xl font-bold">The Nash Intelligence Ecosystem</h2>
+<section class="py-20 px-6 bg-[#0b1020]" data-purpose="ecosystem">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-12">
+<h2 class="text-xl md:text-2xl font-bold text-nash-text">The Nash Intelligence Ecosystem</h2>
 </div>
-<div class="flex flex-col gap-6 max-w-xs mx-auto"><div class="flex flex-col gap-6 w-full max-w-sm mx-auto md:flex md:flex-row md:justify-center md:gap-4"><!-- Nash Mind -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Mind" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ugrTibpGywnPSDjp2wGFNL4fXh7ka6wuD_vSJTOpEztFfFYHnuunRqQzf-QUG5dBvh5wCrtHUCBBFIYFjlS2EgLdCYcpenAhI09uvglGPg7Re4DkDRWB8t19P0PsS0MbjkJcw5evPixAePaG2ovhjfPcQDHjnth9i9jvfSLxPIbcHOrvu6-ptV2voU5iqDY1yv_xdaHxyZlcsuBVul1uJnPQ4qute5dE2kf3ItZQLh5sHyxAMMssct9tqc">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+<div class="bg-[#1b1b1d] border border-white/10 rounded-nash px-8 py-8 min-h-[260px] flex flex-col items-center justify-start text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+<div class="mb-6 h-28 w-28 bg-white flex items-center justify-center overflow-hidden">
+<img alt="Nash Mind" class="h-full w-full object-contain" src="/nash/icons/nash-mind.png">
 </div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Mind</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Enterprise Knowledge Layer</p>
+<h4 class="font-bold text-lg md:text-xl font-['Hanken_Grotesk'] text-nash-text mb-3">Nash Mind</h4>
+<p class="text-sm text-nash-muted leading-snug">Enterprise Knowledge<br>Layer</p>
 </div>
-<!-- Nash Edge -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Edge" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ug4VZpul_qgY4QAyoyYJrtcu6vhlYOX3u4--1JRzegbeuCloRHOQR06bAcm7zTbYRKy9YJ0pUWDwk3uR7Kxub8OWVJUc4iELAqi4eiw1zzss3fsjo-2GmPfDItq_SiKA40OhzqgmS7-2IOkGCJvJLmkfDBZp2zhxEQ3Q8vORPcFWG9Z9SbdII5nQyKlDtP3f29aqCswupQMV8COllQAAMNnMsduLLgRSNdBOhjprWwoE54QfdbE1xuZGUsN">
+<div class="bg-[#1b1b1d] border border-white/10 rounded-nash px-8 py-8 min-h-[260px] flex flex-col items-center justify-start text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+<div class="mb-6 h-28 w-28 bg-white flex items-center justify-center overflow-hidden">
+<img alt="Nash Edge" class="h-full w-full object-contain" src="/nash/icons/nash-edge.png">
 </div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Edge</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Localized AI Compute</p>
+<h4 class="font-bold text-lg md:text-xl font-['Hanken_Grotesk'] text-nash-text mb-3">Nash Edge</h4>
+<p class="text-sm text-nash-muted leading-snug">Localized AI Compute</p>
 </div>
-<!-- Nash Agents -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Agents" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uh_xZGeP0ziqGeOUO9Kg9Eah6-PBAvX2FJ3j561FTHwV_6GeuceRt0jSo2JOPcZ4cbiCOboXjua_B0BI0UpJgqBM0_aigfbkH32PqHmQVt1TiF31GYEylzalbXZGSY7UX2EIRYL7Py7rnKO6iPGcMMH6Xsts8mUMeCrwZ2Om4o8E2hPmlDtCnFvAn4in7erJCDFe_WwRvYhxYwWj-DPsJHUF2ynWb2Hfsb3-5prFToyeqX4fOq3GLuBHr4">
+<div class="bg-[#1b1b1d] border border-white/10 rounded-nash px-8 py-8 min-h-[260px] flex flex-col items-center justify-start text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+<div class="mb-6 h-28 w-28 bg-white flex items-center justify-center overflow-hidden">
+<img alt="Nash Agents" class="h-full w-full object-contain" src="/nash/icons/nash-agent.png">
 </div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Agents</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Specialized Intelligence</p>
+<h4 class="font-bold text-lg md:text-xl font-['Hanken_Grotesk'] text-nash-text mb-3">Nash Agents</h4>
+<p class="text-sm text-nash-muted leading-snug">Specialized Intelligence</p>
 </div>
-<!-- Nash OS -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash OS" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uiV_U9umYwPk1m6uDCcY9A1tJpFVbwnUhMDw_OhsO8_NCwg3Yv3IGJa08dewF82TJ9Bca0c6nlo5zxcJb8mx9aCbCORAAWhydNWn2awx7YoVDW7R7PPyfazEcCvHUnozAbDSUikYE0SGmJ-W48xaNNJKlBeV3x0-hahTbpzAg-c1yS52yUjtHAVeFcRLxulcVR9ECJt6kln2zKKUJ7L-G_1lAWjZ7jZ_fh2MC8sLRZx8J8B5Mg7W-R5pDtO">
+<div class="bg-[#1b1b1d] border border-white/10 rounded-nash px-8 py-8 min-h-[260px] flex flex-col items-center justify-start text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+<div class="mb-6 h-28 w-28 bg-white flex items-center justify-center overflow-hidden">
+<img alt="Nash OS" class="h-full w-full object-contain" src="/nash/icons/nash-os.png">
 </div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash OS</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">The AI Core Foundation</p>
+<h4 class="font-bold text-lg md:text-xl font-['Hanken_Grotesk'] text-nash-text mb-3">Nash OS</h4>
+<p class="text-sm text-nash-muted leading-snug">The AI Core Foundation</p>
 </div>
-<!-- Nash Cloud -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Cloud" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ug0wDy6YXxtXg075d754M2niPPY-0CgCsLFIf5nKJq5a2hcRn3HZa03yXgnIe3Hj-4ggzZSbQvrdt1phska0v_5OKAGKzY57-GiBnAOCr0bObl5MnsMcBWll1MsxwmI00O_SURUoyGljKfaxVrz7kaqyKTZ4OzZgO27wcVXHAzGtEoXXOpiIvMcsZ0zFKWT8YJjMT9Db_N994_MvPGbJkRkITV88Jf-5lZodiXte42-0by2m7oFbsNvftw">
+<div class="bg-[#1b1b1d] border border-white/10 rounded-nash px-8 py-8 min-h-[260px] flex flex-col items-center justify-start text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+<div class="mb-6 h-28 w-28 bg-white flex items-center justify-center overflow-hidden">
+<img alt="Nash Cloud" class="h-full w-full object-contain" src="/nash/icons/nash-cloud.png">
 </div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Cloud</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Cloud &amp; SaaS Hosting</p>
-</div></div></div>
+<h4 class="font-bold text-lg md:text-xl font-['Hanken_Grotesk'] text-nash-text mb-3">Nash Cloud</h4>
+<p class="text-sm text-nash-muted leading-snug">Cloud &amp; SaaS Hosting</p>
+</div>
+</div>
+</div>
 </section>
 <!-- END: Ecosystem Section -->
 <!-- BEGIN: Call to Action -->
@@ -370,10 +376,10 @@
 <div>
 <h5 class="font-bold mb-4 uppercase tracking-widest text-[10px]">Product</h5>
 <ul class="space-y-2 text-nash-muted">
-<li class="">Platform</li>
-<li class="">Edge</li>
-<li class="">Mind</li>
-<li class="">Axis</li>
+<li class=""><a href="/">Platform</a></li>
+<li class=""><a href="/edge/">Edge</a></li>
+<li class=""><a href="/mind/">Mind</a></li>
+<li class=""><a href="/axis/">Axis</a></li>
 </ul>
 </div>
 <div>
