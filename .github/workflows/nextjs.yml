@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: Build Next.js static site
 
 on:
   push:
@@ -7,12 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -40,8 +34,6 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -51,22 +43,17 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Lint
+        run: npm run lint
       - name: Build with Next.js
-        env:
-          GITHUB_PAGES_BASE_PATH: /nashintelligence.ai
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload static export artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: nashintelligence-ai-static-export
           path: ./out
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+# GitHub Pages deployment is intentionally not enabled here because this private
+# repository's current GitHub plan does not support Pages. To deploy via Pages
+# later, enable Pages support or make the repo eligible, then restore the
+# configure-pages/upload-pages-artifact/deploy-pages steps from the copied setup.
