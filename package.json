@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "generate:html": "node scripts/generate-exact-html.mjs",
-    "dev": "next dev",
+    "dev": "next dev -p 16173",
     "build": "npm run generate:html && next build && node scripts/materialize-exact-html.mjs",
     "start": "next start",
     "lint": "eslint"
