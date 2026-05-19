@@ -67,6 +67,10 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Generate exact HTML
+        env:
+          GITHUB_PAGES_BASE_PATH: /nashintelligence.ai
+        run: node scripts/generate-exact-html.mjs
       - name: Build with Next.js
         env:
           GITHUB_PAGES_BASE_PATH: /nashintelligence.ai

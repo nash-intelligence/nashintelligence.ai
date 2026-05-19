@@ -9,6 +9,8 @@ npm install
 npm run dev
 ```
 
+The local dev server runs at `http://localhost:16173`.
+
 ## Build
 
 ```bash

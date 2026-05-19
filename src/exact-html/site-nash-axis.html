@@ -1,413 +1,289 @@
 <!DOCTYPE html><html class="dark" lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Nash Axis - Agent Orchestration</title>
-<!-- Tailwind CSS v3 CDN -->
+<title>Nash Axis | Agent Orchestration</title>
+<meta name="description" content="Nash Axis coordinates agents, workflows, approvals, tasks and system actions through a governed orchestration layer.">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts: Hanken Grotesk -->
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: '#131315',
-            'surface-dim': '#131315',
-            'surface-bright': '#39393b',
-            'surface-container': '#1b1b1d',
-            'nash-accent': '#bec6e0',
-            'nash-text': '#fbf8fd',
-            'nash-muted': '#9ca3af',
-            'nash-blue': '#1a2b4b'
-          },
-          fontFamily: {
-            sans: ['Hanken Grotesk', 'sans-serif'],
-          },
-          borderRadius: {
-            'nash': '4px',
-          }
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-primary": "#283044", "on-primary-fixed": "#131b2e", "background": "#131315", "surface-container-low": "#1b1b1d",
+        "tertiary": "#c4c7c9", "primary": "#bec6e0", "on-secondary": "#00354a", "secondary-container": "#00a6e0",
+        "surface-container-high": "#2a2a2b", "surface": "#131315", "on-background": "#e4e2e4", "surface-variant": "#353436",
+        "outline": "#909097", "on-surface": "#e4e2e4", "on-surface-variant": "#c6c6cd", "surface-container": "#1f1f21",
+        "primary-container": "#0f172a", "surface-container-lowest": "#0e0e10", "secondary": "#7bd0ff",
+        "error": "#ffb4ab", "inverse-primary": "#565e74", "on-tertiary-container": "#7e8183", "surface-container-highest": "#353436",
+        "outline-variant": "#45464d", "tertiary-container": "#15181a"
+      },
+      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+      spacing: { "margin-mobile": "16px", "container-max": "1440px", "margin-desktop": "64px", gutter: "24px", base: "8px" },
+      fontFamily: { "label-mono": ["Geist"], "body-md": ["Inter"], "display-lg": ["Hanken Grotesk"], "headline-lg-mobile": ["Hanken Grotesk"], "headline-lg": ["Hanken Grotesk"] },
+      fontSize: {
+        "label-mono": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+        "display-lg": ["48px", { lineHeight: "56px", fontWeight: "700" }],
+        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }]
       }
     }
-  </script>
-<style data-purpose="custom-styling">
-    body {
-      background-color: #0e0e10;
-      color: #fbf8fd;
-      -webkit-font-smoothing: antialiased;
-    }
-    .gradient-border {
-      position: relative;
-      background: #1b1b1d;
-      border-radius: 4px;
-    }
-    .gradient-border::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: 5px;
-      padding: 1px;
-      background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-    .hero-glow {
-      background: radial-gradient(circle at 50% 50%, rgba(30, 58, 138, 0.15) 0%, transparent 70%);
-    }
-  </style>
+  }
+}
+</script>
+<style>
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.glow-blue { box-shadow: 0 0 15px rgba(123, 208, 255, 0.15); }
+.glass-panel { background: rgba(31, 31, 33, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(144, 144, 151, 0.1); }
+.circuit-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(144, 144, 151, 0.2), transparent); }
+</style>
 </head>
-<body class="font-sans">
-<!-- BEGIN: Navigation -->
-<nav class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-white/5 py-4 px-6 flex justify-between items-center" data-purpose="main-nav">
-<a class="font-bold text-xl tracking-tight text-nash-text" href="/">Nash Intelligence</a>
-<div class="hidden md:flex items-center gap-8 text-sm font-medium">
-<a class="text-nash-muted hover:text-nash-text transition-colors" href="/">Platform</a>
-<a class="text-nash-muted hover:text-nash-text transition-colors" href="/edge/">Edge</a>
-<a class="text-nash-muted hover:text-nash-text transition-colors" href="/mind/">Mind</a>
-<a class="text-nash-text border-b border-nash-accent pb-1" href="/axis/">Axis</a>
-<a class="text-nash-muted hover:text-nash-text transition-colors" href="/use-cases/">Use Cases</a>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary/30 selection:text-secondary overflow-x-hidden">
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/10 shadow-sm">
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<a class="flex items-center gap-3" href="/">
+<img alt="Nash Intelligence" class="h-10 w-10" src="/nash/icons/nash-intelligence-dark.png">
+<span class="font-display-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight">Nash Intelligence</span>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/">Platform</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/edge/">Edge</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/mind/">Mind</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="/axis/">Axis</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="/use-cases/">Use Cases</a>
 </div>
-<button class="bg-nash-text text-black px-4 py-1.5 rounded-nash text-sm font-medium">Book a conversation</button>
+<a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
 </nav>
-<!-- END: Navigation -->
-<!-- BEGIN: Hero Section -->
-<section class="relative px-6 pt-12 pb-20 hero-glow overflow-hidden" data-purpose="hero">
-<div class="max-w-md mx-auto">
-<span class="text-xs uppercase tracking-widest text-nash-accent font-semibold mb-4 block">NASH AXIS</span>
-<h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
-        Agent orchestration with control built in.
-      </h1>
-<p class="text-nash-muted text-lg mb-8 leading-relaxed">
-        Nash Axis coordinates agents, workflows, approvals, tasks and system actions through a governed orchestration layer.
-      </p>
+</header>
+<main class="pt-20">
+<section class="relative overflow-hidden py-24 md:py-32">
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary to-transparent"></div>
+<div class="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-secondary to-transparent"></div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-16 items-center">
+<div class="z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-outline-variant rounded mb-6">
+<span class="material-symbols-outlined text-secondary text-sm">account_tree</span>
+<span class="font-label-mono text-label-mono text-secondary uppercase">Product: Axis</span>
+</div>
+<h1 class="font-display-lg text-display-lg md:text-6xl text-on-surface mb-6 leading-tight">Agent orchestration <br><span class="text-primary">with control built in.</span></h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-10 max-w-xl">Nash Axis coordinates agents, workflows, approvals, tasks and system actions through a governed orchestration layer.</p>
+<div class="flex flex-wrap gap-4">
+<a class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="#pillars">View pillars</a>
+</div>
+</div>
+<div class="relative flex justify-center items-center min-h-[320px]">
+<div class="absolute w-[120%] h-[120%] bg-secondary/5 blur-[120px] rounded-full"></div>
+<img alt="Nash Axis orchestration pillar" class="relative z-10 w-full max-w-lg rounded-2xl shadow-2xl object-contain max-h-[420px]" src="/nash/icons/nash-axis-dark.png">
+</div>
+</div>
+</section>
+<section class="py-20 bg-surface-container-lowest relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<div class="max-w-3xl mx-auto border-x border-outline-variant/10 px-8">
+<span class="material-symbols-outlined text-error mb-4 text-3xl">rule</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Autonomous Agents Need Boundaries</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-xl italic leading-relaxed">"Agents can overlap, bypass responsibility and lose accountability without a clear routing, approval and audit layer."</p>
+</div>
+</div>
+</section>
+<section class="py-24 relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16 flex items-end justify-between border-b border-outline-variant/20 pb-8">
+<div>
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-2">Capabilities</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">What Nash Axis Coordinates</h2>
+</div>
+<div class="hidden md:block h-px w-1/3 bg-outline-variant/20 mb-4"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-gutter">
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-secondary/30">
+<div class="h-12 w-12 rounded bg-secondary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">route</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Route tasks</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Dispatch work to the right agent, human or workflow based on capability, policy and context.</p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-secondary uppercase">Directed work</span>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-primary/30">
+<div class="h-12 w-12 rounded bg-secondary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">approval_delegation</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Manage approvals</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Pause sensitive actions for human review and record approval paths.</p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-secondary uppercase">Human control</span>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-lg border-t-2 border-t-tertiary/30">
+<div class="h-12 w-12 rounded bg-secondary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<h3 class="font-headline-lg-mobile text-on-surface mb-4">Audit actions</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Capture who did what, which systems were touched and why each decision moved forward.</p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-mono text-[10px] text-secondary uppercase">Full lineage</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-container-low" id="pillars">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16">
+<span class="font-label-mono text-label-mono text-secondary uppercase block mb-4">Pillars</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">Nash Intelligence Pillars</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Each page uses the same design system and the local Nash images for hero and pillar visuals.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter">
+<a class="glass-panel p-8 rounded-xl group transition-all hover:bg-surface-container" href="/mind/">
+<div class="flex justify-between items-start mb-8">
+<img alt="Nash Mind icon" class="h-14 w-14 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="/nash/icons/nash-mind.png">
+<span class="font-label-mono text-label-mono bg-secondary/10 text-secondary px-3 py-1 rounded uppercase">Memory</span>
+</div>
+<h3 class="font-display-lg text-2xl font-bold mb-3 text-on-surface">Nash Mind</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Structured organisational knowledge, evidence, relationships, policy context and decision history for governed AI.</p>
+</a>
+<a class="glass-panel p-8 rounded-xl group transition-all border-secondary/30 bg-primary-container" href="/axis/">
+<div class="flex justify-between items-start mb-8">
+<img alt="Nash Axis icon" class="h-14 w-14 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="/nash/icons/nash-axis.png">
+<span class="font-label-mono text-label-mono bg-secondary/10 text-secondary px-3 py-1 rounded uppercase">Orchestration</span>
+</div>
+<h3 class="font-display-lg text-2xl font-bold mb-3 text-on-surface">Nash Axis</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">The control plane for agents, approvals, workflow routing, human checkpoints and auditable action chains.</p>
+</a>
+<a class="glass-panel p-8 rounded-xl group transition-all hover:bg-surface-container" href="/edge/">
+<div class="flex justify-between items-start mb-8">
+<img alt="Nash Edge icon" class="h-14 w-14 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="/nash/icons/nash-edge.png">
+<span class="font-label-mono text-label-mono bg-secondary/10 text-secondary px-3 py-1 rounded uppercase">Private Compute</span>
+</div>
+<h3 class="font-display-lg text-2xl font-bold mb-3 text-on-surface">Nash Edge</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Private AI deployment close to your data, infrastructure, users and operational boundaries.</p>
+</a>
+<a class="glass-panel p-8 rounded-xl group transition-all hover:bg-surface-container" href="/">
+<div class="flex justify-between items-start mb-8">
+<img alt="Nash Agent icon" class="h-14 w-14 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="/nash/icons/nash-agent.png">
+<span class="font-label-mono text-label-mono bg-secondary/10 text-secondary px-3 py-1 rounded uppercase">Execution</span>
+</div>
+<h3 class="font-display-lg text-2xl font-bold mb-3 text-on-surface">Nash Agent</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Governed specialist agents for repeatable business work across operations, proposals, support and analysis.</p>
+</a>
+<a class="glass-panel p-8 rounded-xl group transition-all hover:bg-surface-container" href="/">
+<div class="flex justify-between items-start mb-8">
+<img alt="Nash OS icon" class="h-14 w-14 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="/nash/icons/nash-os.png">
+<span class="font-label-mono text-label-mono bg-secondary/10 text-secondary px-3 py-1 rounded uppercase">Control</span>
+</div>
+<h3 class="font-display-lg text-2xl font-bold mb-3 text-on-surface">Nash OS</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">The operating surface for policy, permissions, visibility, system status and enterprise AI governance.</p>
+</a>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">Orchestration Patterns</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Coordinate human and agent work before it becomes operational noise.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 bg-surface p-10 rounded-xl border border-outline-variant/20 flex flex-col  gap-8">
+<div class="z-10 ">
+<span class="font-label-mono text-label-mono text-secondary mb-4 block">01 Request</span>
+<h3 class="font-headline-lg text-on-surface mb-4">Interpret Work</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Understand the incoming request, required context and sensitivity of the action.</p>
+</div>
+<div class="z-10  flex justify-center items-center">
+<img alt="Interpret Work" class="h-48 md:h-56 max-w-full object-contain drop-shadow-[0_0_30px_rgba(189,198,224,0.2)]" src="/nash/icons/nash-agent.png">
+</div>
+</div>
+<div class="md:col-span-4 bg-surface p-10 rounded-xl border border-outline-variant/20 flex flex-col  gap-8">
+<div class="z-10 ">
+<span class="font-label-mono text-label-mono text-secondary mb-4 block">02 Assign</span>
+<h3 class="font-headline-lg text-on-surface mb-4">Coordinate Agents</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Route subtasks across agents and humans with role boundaries and permission checks.</p>
+</div>
+<div class="z-10 mt-auto flex justify-center items-center">
+<img alt="Coordinate Agents" class="h-44 max-w-full object-contain drop-shadow-[0_0_30px_rgba(189,198,224,0.2)]" src="/nash/icons/nash-axis.png">
+</div>
+</div>
+<div class="md:col-span-12 bg-primary-container p-10 rounded-xl border border-outline-variant/20 flex flex-col md:flex-row justify-between gap-8">
+<div class="z-10 max-w-xl">
+<span class="font-label-mono text-label-mono text-secondary mb-4 block">03 Record</span>
+<h3 class="font-headline-lg text-on-surface mb-4">Approve And Audit</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Capture approvals, outputs and final state in a durable audit trail.</p>
+</div>
+<div class="z-10  flex justify-center items-center">
+<img alt="Approve And Audit" class="h-44 max-w-full object-contain drop-shadow-[0_0_30px_rgba(189,198,224,0.2)]" src="/nash/icons/nash-os.png">
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="bg-surface border border-outline-variant/30 rounded-2xl p-12 md:p-20 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-5 pointer-events-none">
+<div class="grid grid-cols-12 h-full w-full">
+<div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div><div class="border-r border-outline h-full"></div>
+</div>
+</div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-8">Coordinate AI work before it becomes chaos.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-12 text-lg">Combine agent speed with human-governed controls, approvals and traceable execution.</p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<a class="bg-primary text-on-primary-fixed px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:scale-[1.02] transition-transform" href="mailto:hello@nashintelligence.ai">Request a demo</a>
+<a class="border border-outline text-on-surface px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="mailto:hello@nashintelligence.ai">Speak to an engineer</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest border-t border-outline-variant/20 relative">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
+<div class="col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<img alt="Nash" class="h-8 w-8" src="/nash/icons/nash-intelligence-dark.png">
+<span class="font-display-lg text-headline-lg text-on-surface">Nash</span>
+</div>
+<p class="font-body-md text-body-md text-on-tertiary-container max-w-xs mb-8">Secure, governed AI infrastructure for the modern enterprise.</p>
+</div>
 <div class="flex flex-col gap-4">
-<button class="bg-white text-black py-3 rounded-nash font-semibold">Book a conversation</button>
-<button class="border border-white/20 py-3 rounded-nash font-semibold bg-white/5">Explore governance</button>
-</div>
-<div class="mt-16 relative">
-<img alt="Orchestration Diagram" class="w-full object-cover rounded-xl border border-white/10" src="/nash/icons/nash-axis-dark.png" style="object-position: 50% 12%; height: 300px;">
-<div class="absolute inset-0 bg-gradient-to-t from-[#0e0e10] via-transparent to-transparent"></div>
-</div>
-</div>
-</section>
-<!-- END: Hero Section -->
-<!-- BEGIN: Problems Section -->
-<section class="py-20 px-6 bg-[#0e0e10]" data-purpose="problems-grid">
-<div class="max-w-md mx-auto text-center mb-12">
-<h2 class="text-2xl font-bold leading-snug">
-        Autonomous agents need coordination, boundaries and accountability.
-      </h2>
-</div>
-<div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
-<!-- Card 1 -->
-<div class="gradient-border p-6 border-l-2 border-l-red-500/50">
-<div class="text-red-400 mb-3 text-lg">⚠️</div>
-<h3 class="text-lg font-semibold mb-2">Overlapping agents</h3>
-<p class="text-nash-muted text-sm leading-relaxed">Conflicting goals and redundant tasks lead to computational waste and inconsistent results.</p>
-</div>
-<!-- Card 2 -->
-<div class="gradient-border p-6 border-l-2 border-l-orange-500/50">
-<div class="text-orange-400 mb-3 text-lg">⚠️</div>
-<h3 class="text-lg font-semibold mb-2">Unclear responsibilities</h3>
-<p class="text-nash-muted text-sm leading-relaxed">Ambiguity in which agent owns a specific outcome creates dangerous gaps in complex processes.</p>
-</div>
-<!-- Card 3 -->
-<div class="gradient-border p-6 border-l-2 border-l-pink-500/50">
-<div class="text-pink-400 mb-3 text-lg">❌</div>
-<h3 class="text-lg font-semibold mb-2">Weak approval paths</h3>
-<p class="text-nash-muted text-sm leading-relaxed">Critical decisions bypassing human validation can result in significant financial and reputational risk.</p>
-</div>
-<!-- Card 4 -->
-<div class="gradient-border p-6 border-l-2 border-l-blue-500/50">
-<div class="text-blue-400 mb-3 text-lg">👁️</div>
-<h3 class="text-lg font-semibold mb-2">No audit trail</h3>
-<p class="text-nash-muted text-sm leading-relaxed">Inability to reconstruct the "reasoning path" of an agent makes compliance and troubleshooting impossible.</p>
-</div>
-</div>
-</section>
-<!-- END: Problems Section -->
-<!-- BEGIN: Capabilities Section -->
-<section class="py-20 px-6 bg-surface-container" data-purpose="core-capabilities">
-<div class="max-w-md mx-auto text-center mb-12">
-<span class="text-[10px] uppercase tracking-[0.2em] text-nash-accent font-bold mb-3 block">CORE CAPABILITIES</span>
-<h2 class="text-2xl font-bold">The coordination layer for governed AI work.</h2>
-</div>
-<div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
-<div class="bg-[#131315] p-5 rounded-nash border border-white/5 flex gap-4 items-start">
-<div class="text-blue-400 mt-1">⇅</div>
-<div>
-<h4 class="font-semibold text-sm mb-1">Route tasks</h4>
-<p class="text-xs text-nash-muted">Intelligent dispatching to the optimal agent or human based on capability.</p>
-</div>
-</div>
-<div class="bg-[#131315] p-5 rounded-nash border border-white/5 flex gap-4 items-start">
-<div class="text-green-400 mt-1">🕸️</div>
-<div>
-<h4 class="font-semibold text-sm mb-1">Coordinate agents</h4>
-<p class="text-xs text-nash-muted">Managing multi-agent communication and state synchronization.</p>
-</div>
-</div>
-<div class="bg-[#131315] p-5 rounded-nash border border-white/5 flex gap-4 items-start">
-<div class="text-yellow-400 mt-1">🛡️</div>
-<div>
-<h4 class="font-semibold text-sm mb-1">Manage approvals</h4>
-<p class="text-xs text-nash-muted">Embedding mandatory human validation checkpoints at critical stages.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- END: Capabilities Section -->
-<!-- BEGIN: Process Section -->
-<section class="py-20 px-6 bg-[#0e0e10]" data-purpose="collaboration-process">
-<div class="max-w-md mx-auto text-center mb-16">
-<h2 class="text-2xl font-bold">Designed for human and agent collaboration.</h2>
-</div>
-<div class="flex flex-col gap-12 max-w-[200px] mx-auto items-center">
-<!-- Step 1 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">1</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Request</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 2 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">2</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Interpret</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 3 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">3</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Assign</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 4 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">4</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Execute</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 5 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">5</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Review</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 6 -->
-<div class="text-center relative">
-<div class="w-10 h-10 rounded-full border-green-500 bg-green-500/10 flex items-center justify-center mx-auto mb-2 text-sm text-green-400">6</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Approve</span>
-<div class="absolute -bottom-10 left-1/2 w-px h-8 bg-white/10"></div>
-</div>
-<!-- Step 7 -->
-<div class="text-center">
-<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-2 text-sm">7</div>
-<span class="text-xs text-nash-muted uppercase tracking-wider">Record</span>
-</div>
-</div>
-</section>
-<!-- END: Process Section -->
-<!-- BEGIN: Persona Roles -->
-<section class="py-20 px-6 bg-surface-container" data-purpose="agent-roles">
-<div class="max-w-md mx-auto mb-10">
-<h2 class="text-2xl font-bold mb-4 text-center">Agents should have roles, not unlimited freedom.</h2>
-<p class="text-nash-muted text-sm text-center">Nash Axis defines specific persona permissions for specialized workloads.</p>
-</div>
-<div class="grid grid-cols-2 gap-3 max-w-md mx-auto">
-<div class="bg-surface-dim border border-white/5 p-6 flex flex-col items-center justify-center rounded-nash">
-<div class="text-blue-400 mb-3 text-xl">🔍</div>
-<span class="text-[10px] font-bold tracking-widest text-nash-muted uppercase">RESEARCH</span>
-</div>
-<div class="bg-surface-dim border border-white/5 p-6 flex flex-col items-center justify-center rounded-nash">
-<div class="text-white/60 mb-3 text-xl">📄</div>
-<span class="text-[10px] font-bold tracking-widest text-nash-muted uppercase">DOCUMENT</span>
-</div>
-<div class="bg-surface-dim border border-white/5 p-6 flex flex-col items-center justify-center rounded-nash">
-<div class="text-blue-500 mb-3 text-xl">⚙️</div>
-<span class="text-[10px] font-bold tracking-widest text-nash-muted uppercase">WORKFLOW</span>
-</div>
-<div class="bg-surface-dim border border-white/5 p-6 flex flex-col items-center justify-center rounded-nash">
-<div class="text-indigo-400 mb-3 text-xl">🎧</div>
-<span class="text-[10px] font-bold tracking-widest text-nash-muted uppercase">SUPPORT</span>
-</div>
-</div>
-</section>
-<!-- END: Persona Roles -->
-<!-- BEGIN: Governance Grid -->
-<section class="py-20 px-6 bg-[#0e0e10]" data-purpose="governance-controls">
-<div class="max-w-md mx-auto mb-12">
-<h2 class="text-2xl font-bold">Control the work before agents act.</h2>
-</div>
-<div class="grid grid-cols-1 gap-1 max-w-md mx-auto">
-<div class="bg-surface-container p-6 border-b border-white/5">
-<h4 class="font-bold text-sm mb-2">Role boundaries</h4>
-<p class="text-xs text-nash-muted">Prevent agents from accessing data or systems outside their designated mission scope.</p>
-</div>
-<div class="bg-surface-container p-6 border-b border-white/5">
-<h4 class="font-bold text-sm mb-2">Tool permissions</h4>
-<p class="text-xs text-nash-muted">Granular control over which APIs and computational tools each agent can invoke.</p>
-</div>
-<div class="bg-surface-container p-6 border-b border-white/5">
-<h4 class="font-bold text-sm mb-2">Human-in-the-loop</h4>
-<p class="text-xs text-nash-muted">Mandatory gating for sensitive actions requiring expert sign-off before proceeding.</p>
-</div>
-<div class="bg-surface-container p-6 border-b border-white/5">
-<h4 class="font-bold text-sm mb-2">Action limits</h4>
-<p class="text-xs text-nash-muted">Rate limiting and cost caps to prevent runaway computational or financial spend.</p>
-</div>
-</div>
-</section>
-<!-- END: Governance Grid -->
-<!-- BEGIN: Workflow Example -->
-<section class="py-20 px-6" data-purpose="workflow-example">
-<div class="max-w-md mx-auto bg-surface-container rounded-xl p-8 border border-white/10 relative overflow-hidden">
-<div class="absolute top-4 right-4 opacity-10">
-<svg fill="none" height="60" stroke="currentColor" viewBox="0 0 100 100" width="60">
-<path d="M20 20h20v20h-20zM60 20h20v20h-20zM40 60h20v20h-20z" stroke-width="2"></path>
-<path d="M40 30h20M50 40v20" stroke-width="2"></path>
-</svg>
-</div>
-<h3 class="text-xl font-bold mb-8">Example: governed proposal workflow.</h3>
-<div class="space-y-10 relative">
-<!-- Connector Line -->
-<div class="absolute left-[13px] top-6 bottom-6 w-px bg-white/10"></div>
-<div class="flex gap-4 relative">
-<div class="z-10 w-7 h-7 rounded bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0">➔</div>
-<div>
-<h5 class="font-bold text-sm mb-1">Inbound Request</h5>
-<p class="text-xs text-nash-muted">Nash Axis receives a request to generate a strategic proposal for a new project.</p>
-</div>
-</div>
-<div class="flex gap-4 relative">
-<div class="z-10 w-7 h-7 rounded bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0">📍</div>
-<div>
-<h5 class="font-bold text-sm mb-1">Routing &amp; Context</h5>
-<p class="text-xs text-nash-muted">Axis pulls data from <span class="text-blue-300">Nash Mind</span> and routes sub-tasks to specialized Research and Document agents.</p>
-</div>
-</div>
-<div class="flex gap-4 relative">
-<div class="z-10 w-7 h-7 rounded bg-green-600/20 flex items-center justify-center text-green-400 shrink-0">✓</div>
-<div>
-<h5 class="font-bold text-sm mb-1">Human Validation</h5>
-<p class="text-xs text-nash-muted">A human expert reviews the draft generated by agents, providing final approval or revision commands.</p>
-</div>
-</div>
-<div class="flex gap-4 relative">
-<div class="z-10 w-7 h-7 rounded bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0">☰</div>
-<div>
-<h5 class="font-bold text-sm mb-1">Audit Recording</h5>
-<p class="text-xs text-nash-muted">The final document is delivered, and the entire interaction chain is locked in the Axis Audit Store.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: Workflow Example -->
-<!-- BEGIN: Ecosystem Section -->
-<section class="py-20 px-6 bg-[#0e0e10]" data-purpose="ecosystem">
-<div class="max-w-md mx-auto text-center mb-12">
-<h2 class="text-xl font-bold">The Nash Intelligence Ecosystem</h2>
-</div>
-<div class="flex flex-col gap-6 max-w-xs mx-auto"><div class="flex flex-col gap-6 w-full max-w-sm mx-auto md:flex md:flex-row md:justify-center md:gap-4"><!-- Nash Mind -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Mind" class="w-full h-full object-contain" src="/nash/icons/nash-mind.png">
-</div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Mind</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Enterprise Knowledge Layer</p>
-</div>
-<!-- Nash Edge -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Edge" class="w-full h-full object-contain" src="/nash/icons/nash-edge.png">
-</div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Edge</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Localized AI Compute</p>
-</div>
-<!-- Nash Agents -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Agents" class="w-full h-full object-contain" src="/nash/icons/nash-agent.png">
-</div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Agents</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Specialized Intelligence</p>
-</div>
-<!-- Nash OS -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash OS" class="w-full h-full object-contain" src="/nash/icons/nash-os.png">
-</div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash OS</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">The AI Core Foundation</p>
-</div>
-<!-- Nash Cloud -->
-<div class="bg-[#1b1b1d] border border-white/10 rounded-nash p-6 flex flex-col items-center text-center">
-<div class="mb-4 aspect-square w-32 flex items-center justify-center">
-<img alt="Nash Cloud" class="w-full h-full object-contain" src="/nash/icons/nash-cloud.png">
-</div>
-<h4 class="font-bold text-lg font-['Hanken_Grotesk'] text-nash-text">Nash Cloud</h4>
-<p class="text-xs text-nash-muted mt-1 uppercase tracking-wider">Cloud &amp; SaaS Hosting</p>
-</div></div></div>
-</section>
-<!-- END: Ecosystem Section -->
-<!-- BEGIN: Call to Action -->
-<section class="py-24 px-6 text-center hero-glow" data-purpose="cta-bottom">
-<div class="max-w-md mx-auto">
-<h2 class="text-3xl font-bold mb-6 leading-tight">Coordinate AI work before it becomes chaos.</h2>
-<p class="text-nash-muted mb-10 leading-relaxed">Get the enterprise-grade orchestration layer that combines agent speed with human-governed controls.</p>
-<button class="bg-nash-accent text-surface font-bold px-8 py-4 rounded-nash w-full text-lg">Start with Nash Axis</button>
-</div>
-</section>
-<!-- END: Call to Action -->
-<!-- BEGIN: Footer -->
-<footer class="bg-surface-container py-16 px-6 border-t border-white/5" data-purpose="site-footer">
-<div class="max-w-md mx-auto">
-<div class="mb-12">
-<div class="font-bold text-xl mb-4">Nash Intelligence</div>
-<p class="text-xs text-nash-muted leading-relaxed">
-          © 2024 Nash Intelligence. All rights reserved.<br>Secure, governed AI infrastructure.
-        </p>
-</div>
-<div class="grid grid-cols-2 gap-y-10 text-xs">
-<div>
-<h5 class="font-bold mb-4 uppercase tracking-widest text-[10px]">Product</h5>
-<ul class="space-y-2 text-nash-muted">
-<li class=""><a href="/">Platform</a></li>
-<li class=""><a href="/edge/">Edge</a></li>
-<li class=""><a href="/mind/">Mind</a></li>
-<li class=""><a href="/axis/">Axis</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-4 uppercase tracking-widest text-[10px]">Safety</h5>
-<ul class="space-y-2 text-nash-muted">
-<li class="">Governance</li>
-<li class="">Safety</li>
-<li class="">Security</li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-4 uppercase tracking-widest text-[10px]">Company</h5>
-<ul class="space-y-2 text-nash-muted">
-<li class="">About</li>
-<li class="">Careers</li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-4 uppercase tracking-widest text-[10px]">Legal</h5>
-<ul class="space-y-2 text-nash-muted">
-<li class="">Privacy</li>
-</ul>
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Core</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="/">Platform</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="/edge/">Edge</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="/mind/">Mind</a>
+<a class="font-label-mono text-label-mono text-primary transition-colors" href="/axis/">Axis</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="/use-cases/">Use Cases</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Trust</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Governance</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Safety</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Security</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-mono text-label-mono text-primary uppercase">Company</h4>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">About</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Contact</a>
+</div>
+<div class="col-span-full mt-12 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-mono text-label-mono text-on-tertiary-container">© 2024 Nash Intelligence. All rights reserved. Secure, governed AI infrastructure.</p>
+<div class="flex gap-6">
+<span class="font-label-mono text-[10px] text-tertiary/40">SYSTEM STATUS: OPERATIONAL</span>
+<span class="font-label-mono text-[10px] text-tertiary/40">ENCRYPTION: AES-256-GCM</span>
 </div>
 </div>
 </div>
 </footer>
-<!-- END: Footer -->
-
-
 </body></html>
