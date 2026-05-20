@@ -295,6 +295,18 @@ function nav(activeKey) {
     .join("\n");
 }
 
+function mobileNav(activeKey) {
+  return navItems
+    .map(([key, label, href]) => {
+      const active = key === activeKey;
+      const className = active
+        ? "bg-primary-container text-on-surface border border-outline-variant/20"
+        : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high border border-transparent";
+      return `<a class="${className} rounded px-4 py-3 font-body-md text-body-md transition-colors" href="${href}">${label}</a>`;
+    })
+    .join("\n");
+}
+
 function pillarGrid(activeKey) {
   return pillarCards
     .map((pillar) => {
@@ -653,6 +665,9 @@ tailwind.config = {
 .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); }
 .circuit-line { height: 1px; background: linear-gradient(90deg, transparent, rgb(var(--outline-variant) / 0.45), transparent); }
 .circuit-bg { background-image: radial-gradient(circle at 2px 2px, var(--circuit-dot) 1px, transparent 0); background-size: 24px 24px; }
+.mobile-menu-open #mobile-menu { display: block; }
+.mobile-menu-open #mobile-menu-icon { display: none; }
+.mobile-menu-open #mobile-menu-close { display: inline-block; }
 </style>
 </head>
 <body class="circuit-bg bg-background text-on-background font-body-md selection:bg-secondary/30 selection:text-secondary overflow-x-hidden transition-colors duration-300">
@@ -668,8 +683,18 @@ ${nav(page.key)}
 <div class="flex items-center gap-3">
 ${themeToggle()}
 <a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<button class="md:hidden h-10 w-10 rounded border border-outline-variant/20 bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center text-on-surface" id="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+<span class="material-symbols-outlined text-[22px]" id="mobile-menu-icon">menu</span>
+<span class="material-symbols-outlined text-[22px] hidden" id="mobile-menu-close">close</span>
+</button>
 </div>
 </nav>
+<div class="hidden md:hidden border-t border-outline-variant/10 bg-surface/95 backdrop-blur-md" id="mobile-menu">
+<div class="px-margin-mobile py-4 flex flex-col gap-2">
+${mobileNav(page.key)}
+<a class="mt-2 bg-primary text-on-primary px-4 py-3 rounded text-center font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+</div>
+</div>
 </header>
 <main class="pt-20">
 <section class="relative overflow-hidden py-24 md:py-32">
@@ -803,6 +828,8 @@ ${navItems.map(([key, label, href]) => `<a class="font-label-mono text-label-mon
   const icons = { light: "light_mode", dark: "dark_mode", system: "desktop_windows" };
   const button = document.getElementById("theme-toggle");
   const icon = document.getElementById("theme-toggle-icon");
+  const mobileButton = document.getElementById("mobile-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   function currentMode() {
@@ -837,6 +864,14 @@ ${navItems.map(([key, label, href]) => `<a class="font-label-mono text-label-mon
       applyTheme("system");
     }
   });
+
+  if (mobileButton && mobileMenu) {
+    mobileButton.addEventListener("click", function() {
+      const isOpen = document.documentElement.classList.toggle("mobile-menu-open");
+      mobileButton.setAttribute("aria-expanded", String(isOpen));
+      mobileButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    });
+  }
 })();
 </script>
 </body></html>
