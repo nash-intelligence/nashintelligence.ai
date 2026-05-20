@@ -723,7 +723,23 @@ tailwind.config = {
   --circuit-dot: rgba(255, 255, 255, 0.035);
   --glow-blue: rgba(123, 208, 255, 0.15);
 }
-.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
 .glow-blue { box-shadow: 0 0 15px var(--glow-blue); }
 .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); }
 .circuit-line { height: 1px; background: linear-gradient(90deg, transparent, rgb(var(--outline-variant) / 0.45), transparent); }
