@@ -19,6 +19,8 @@ function withBasePath(html) {
 
   return html
     .replace(/href="\/(favicon(?:-light|-dark)?\.(?:ico|png)|apple-icon(?:-light|-dark)\.png)"/g, (_match, asset) => `href="${basePath}/${asset}"`)
+    .replace(/href="\/(fonts\/[^"]+)"/g, (_match, asset) => `href="${basePath}/${asset}"`)
+    .replace(/url\("\/(fonts\/[^"]+)"\)/g, (_match, asset) => `url("${basePath}/${asset}")`)
     .replace(/href="\/(edge|deploy|mind|axis|use-cases)?\/?"/g, (_match, route = "") => {
       const suffix = route ? `/${route}/` : "/";
       return `href="${basePath}${suffix}"`;
