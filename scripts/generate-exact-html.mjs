@@ -21,6 +21,10 @@ const navItems = [
   ["deploy", "Deploy", routes.deploy],
 ];
 
+const bookingUrl = "https://calendar.app.google/Fjoz6TcEmaZMiRer9";
+const contactEmail = "nash.intelligence.ai@gmail.com";
+const contactUrl = `mailto:${contactEmail}`;
+
 function themeToggle() {
   return `<button class="h-10 w-10 rounded-full border border-outline-variant/20 bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center text-on-surface-variant" id="theme-toggle" type="button" title="Theme: System" aria-label="Theme: System" data-theme-mode="system">
 <span class="material-symbols-outlined text-[20px]" id="theme-toggle-icon">desktop_windows</span>
@@ -428,7 +432,7 @@ ${index % 2 === 0 ? '<div class="w-full md:w-1/2 hidden md:block"></div>' : ""}
 <h1 class="font-display-lg text-display-lg md:text-6xl text-on-surface mb-6 max-w-4xl mx-auto leading-tight">Private AI deployment, sized to your organisation.</h1>
 <p class="font-body-md text-body-md text-on-tertiary-container max-w-2xl mx-auto mb-10">From secure managed cloud for rapid prototyping to full-scale sovereign infrastructure racks. Nash Intelligence scales with your data requirements.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all flex items-center justify-center gap-2" href="mailto:hello@nashintelligence.ai">Book a conversation <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all flex items-center justify-center gap-2" href="${bookingUrl}">Book a conversation <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
 <a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="/edge/">Explore Nash Edge</a>
 </div>
 <div class="relative py-12 hidden md:block">
@@ -514,8 +518,8 @@ ${infraRows}
 <div class="relative z-10 px-6">
 <h2 class="font-display-lg text-headline-lg md:text-display-lg text-on-surface mb-6">Find the deployment option that fits your organisation.</h2>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:opacity-90 transition-all" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
-<a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="mailto:hello@nashintelligence.ai">Explore governance</a>
+<a class="bg-primary text-on-primary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:opacity-90 transition-all" href="${bookingUrl}">Book a conversation</a>
+<a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="${contactUrl}">Explore governance</a>
 </div>
 </div>
 <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -761,7 +765,7 @@ ${nav(page.key)}
 </div>
 <div class="flex items-center gap-3">
 ${themeToggle()}
-<a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded hover:opacity-90 active:scale-95 transition-all font-label-mono text-label-mono uppercase tracking-widest" href="${bookingUrl}">Book a conversation</a>
 <button class="md:hidden h-10 w-10 rounded border border-outline-variant/20 bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center text-on-surface" id="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
 <span class="material-symbols-outlined text-[22px]" id="mobile-menu-icon">menu</span>
 <span class="material-symbols-outlined text-[22px] hidden" id="mobile-menu-close">close</span>
@@ -771,7 +775,7 @@ ${themeToggle()}
 <div class="hidden md:hidden border-t border-outline-variant/10 bg-surface/95 backdrop-blur-md" id="mobile-menu">
 <div class="px-margin-mobile py-4 flex flex-col gap-2">
 ${mobileNav(page.key)}
-<a class="mt-2 bg-primary text-on-primary px-4 py-3 rounded text-center font-label-mono text-label-mono uppercase tracking-widest" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<a class="mt-2 bg-primary text-on-primary px-4 py-3 rounded text-center font-label-mono text-label-mono uppercase tracking-widest" href="${bookingUrl}">Book a conversation</a>
 </div>
 </div>
 </header>
@@ -790,7 +794,7 @@ ${mobileNav(page.key)}
 <h1 class="font-display-lg text-display-lg md:text-6xl text-on-surface mb-6 leading-tight">${page.h1}</h1>
 <p class="font-body-md text-body-md text-on-surface-variant mb-10 max-w-xl">${page.intro}</p>
 <div class="flex flex-wrap gap-4">
-<a class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all" href="mailto:hello@nashintelligence.ai">Book a conversation</a>
+<a class="bg-secondary text-on-secondary px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest glow-blue hover:brightness-110 transition-all" href="${bookingUrl}">Book a conversation</a>
 <a class="border border-outline-variant text-on-surface px-8 py-4 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="#pillars">View pillars</a>
 </div>
 </div>
@@ -859,8 +863,8 @@ ${deployExtraSections(page)}
 <h2 class="font-display-lg text-display-lg text-on-surface mb-8">${page.ctaTitle}</h2>
 <p class="font-body-md text-body-md text-on-surface-variant mb-12 text-lg">${page.ctaCopy}</p>
 <div class="flex flex-col md:flex-row gap-6 justify-center">
-<a class="bg-primary text-on-primary-fixed px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:scale-[1.02] transition-transform" href="mailto:hello@nashintelligence.ai">Request a demo</a>
-<a class="border border-outline text-on-surface px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="mailto:hello@nashintelligence.ai">Speak to an engineer</a>
+<a class="bg-primary text-on-primary-fixed px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:scale-[1.02] transition-transform" href="${bookingUrl}">Request a demo</a>
+<a class="border border-outline text-on-surface px-10 py-5 rounded font-label-mono text-label-mono font-bold uppercase tracking-widest hover:bg-surface-variant transition-all" href="${contactUrl}">Speak to an engineer</a>
 </div>
 </div>
 </div>
@@ -882,14 +886,14 @@ ${navItems.map(([key, label, href]) => `<a class="font-label-mono text-label-mon
 </div>
 <div class="flex flex-col gap-4">
 <h4 class="font-label-mono text-label-mono text-primary uppercase">Trust</h4>
-<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Governance</a>
-<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Safety</a>
-<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Security</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="${contactUrl}">Governance</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="${contactUrl}">Safety</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="${contactUrl}">Security</a>
 </div>
 <div class="flex flex-col gap-4">
 <h4 class="font-label-mono text-label-mono text-primary uppercase">Company</h4>
-<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">About</a>
-<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="mailto:hello@nashintelligence.ai">Contact</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="${contactUrl}">About</a>
+<a class="font-label-mono text-label-mono text-on-tertiary-container hover:text-secondary transition-colors" href="${contactUrl}">Contact</a>
 </div>
 <div class="col-span-full mt-12 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
 <p class="font-label-mono text-label-mono text-on-tertiary-container">© 2024 Nash Intelligence. All rights reserved. Secure, governed AI infrastructure.</p>
